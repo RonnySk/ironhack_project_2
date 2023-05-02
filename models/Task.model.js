@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const taskSchema = new Schema(
   {
-    task: {
+    name: {
       type: String,
       required: true,
     },
@@ -11,7 +11,16 @@ const taskSchema = new Schema(
       type: String,
     },
 
-    users: { type: Schema.Types.ObjectId, ref: "User" }
+    user: { type: Schema.Types.ObjectId, ref: "User" },
+
+    isdone: {
+      type: Boolean,
+      default: false,
+    }, 
+
+    flatId: {
+      type: Schema.Types.ObjectId, ref: "Flat"
+    }
   },
   {
     timestamps: true
@@ -20,7 +29,6 @@ const taskSchema = new Schema(
 
 const Task = model("Task", taskSchema);
 
-module.exports = Schedule;
+module.exports = Task;
 
 
-//connect to flat 
