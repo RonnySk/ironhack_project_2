@@ -1,0 +1,10 @@
+<header>
+    {{if userLoggedIn}}
+    <a class="logo" href="/flat">🥨</a>    
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    {{else}}
+    <a class="logo" href="/">🥨</a>    
+    {{/if}}
+</header>

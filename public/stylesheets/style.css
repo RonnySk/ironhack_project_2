@@ -1,12 +1,239 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/*----- GENERAL -----*/
+
+:root {
+  --color-primary: #ACACAC;
+  --color-secondary: #D8D8D8;
+  --color-tertiary: #D8D8D8;
+  --color-text: #000;
+  --color-headlines: #000;
+  --color-links: #CC752F;
+  --color-border-input: #979797;
+  --base-spacing: 1rem;
+  --font-size-base: 1.5rem;
+  --header-height: 95px;
+  --footer-height: 77px;
 }
 
-a {
-  color: #00b7ff;
+body {
+  color: var(--color-text);
+  font: var(--font-size-base) Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/*----- TYPOGRAPHY -----*/
+
+h1,h2,h3,h4,h5,h6 {
+  color: var(--color-headlines);
 }
 
 h1 {
-  color: 15px;
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: var(--font-size-base);
+  margin-bottom: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+h1+h2 {
+  margin-top: 0;
+}
+
+main > section h2:first-child {
+  margin-top: 0;
+}
+
+main > section:not(:first-child) h2 {
+  border-top: 1px solid var(--color-secondary);
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+}
+
+p {
+  margin-top: 0;
+}
+
+a {
+  color: var(--color-links);
+}
+
+a.logo {
+  text-decoration: none;
+  font-size: 3rem;
+}
+
+ul.unstyled {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+/*----- PAGE ELEMENTS -----*/
+
+header {
+  background-color: var(--color-secondary);
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  padding: var(--base-spacing);
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+main {
+  padding: calc(var(--base-spacing) * 2) var(--base-spacing) calc(var(--base-spacing) * 4);
+  max-width: 750px;
+  margin: var(--header-height) auto 0;
+}
+
+main .logo {
+  font-size: 10rem;
+  text-align: center;
+}
+
+footer {
+  background-color: var(--color-secondary);
+  font-size: 1.2rem;
+  padding: var(--base-spacing);
+  text-align: right;
+}
+
+footer p {
+  margin-bottom: 0;
+}
+
+footer small {
+  font-size: 0.7rem;
+}
+
+
+/*----- CONTENT ELEMENTS -----*/
+
+section.intro,
+section.error {
+  text-align: center;
+}
+
+figure {
+  margin: 0;
+}
+
+
+/* user image */
+
+figure.user img {
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  display: block;
+  height: 80px;
+  width: 80px;
+}
+
+figure.user figcaption {
+  margin: 0 auto;
+}
+
+
+/* list flatmates */
+
+.list-flatmates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-spacing);
+}
+
+.list-flatmates li {
+  flex: 0 0 calc(20% - (var(--base-spacing)*4/5));
+}
+
+.list-flatmates .user {
+  text-align: center;
+}
+
+.list-flatmates img {
+  margin: 0 auto;
+}
+
+
+/* list tasks */
+
+.list-tasks li {
+  display: flex;
+  gap: var(--base-spacing);
+  margin-top: calc(var(--base-spacing) * 2);
+}
+
+.list-tasks li .user {
+  flex: 0 0 20%;
+}
+
+.list-tasks li .task {
+  flex: 1 1;
+}
+
+.list-tasks li .status {
+  flex: 0 0;
+}
+
+
+/*----- FORM ELEMENTS -----*/
+
+input,
+select,
+textarea {
+  border: 1px solid var(--color-border-input);
+  display: block;
+  font-size: var(--font-size-base);
+  margin-bottom: var(--base-spacing);
+  padding: var(--base-spacing);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.btn,
+button,
+input[type="submit"] {
+  background-color: var(--color-secondary);
+  border: none;
+  box-sizing: border-box;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: calc(var(--font-size-base) * 0.9);
+  font-weight: bold;
+  display: block;
+  letter-spacing: 1px;
+  padding: var(--base-spacing);
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.btn:not(:last-child),
+button:not(:last-child),
+input[type="submit"]:not(:last-child) {
+  margin-bottom: var(--base-spacing);
+}
+
+header .btn,
+header button,
+header input[type="submit"] {
+  background-color: #fff;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+button:hover,
+button:hover,
+button:active,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+input[type="submit"]:active {
+  background-color: var(--color-primary);
 }

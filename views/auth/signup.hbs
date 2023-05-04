@@ -1,0 +1,11 @@
+<h1>Create an account</h1>
+<form action="/signup" method="post" >
+    <input type="text" name="username" value="" placeholder="Name">
+    <input type="email" name="email" value="" placeholder="Email">
+    <input type="password" name="password" value="" placeholder="*********">
+    <input type="file" name="image" id="">
+    <input type="submit" value="Create User">
+</form>
+{{#if error}}
+    {{error}}
+{{/if}}
