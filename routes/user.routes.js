@@ -1,5 +1,7 @@
 const bcryptjs = require("bcryptjs");
 const router = require("express").Router();
+const isLoggedOut = require("../middlewares/isLoggedOut");
+const isLoggedIn = require("../middlewares/isLoggedIn");
 const User = require("../models/User.model");
 const Flat = require("../models/Flat.model");
 const Task = require("../models/Task.model");
@@ -41,18 +43,17 @@ router.post("/login", async (req, res, next) => {
         if(!passwordsMatch) {
             return res.render("auth/login", {error: "Sorry the password is incorrect!"})
         }
-        req.session.user = {
-            email: user.email,
-        };
+        //console.log(`This is the user: ${user}`);
+        req.session.user = user._id;
         res.redirect('flat')
     } catch (err){ 
         next(err);
     }
 })
 
-router.get('/flat', async (req, res) => {
+router.get('/flat', isLoggedIn, async (req, res) => {
     const allUsers = await User.find();
-    console.log(allUsers);
+    //console.log(allUsers);
     res.render('flat', {allUsers});
 });
 
@@ -72,7 +73,8 @@ router.get('/flat', async (req, res) => {
 
 router.post('/flat', async (req, res, next) => {
     try {
-        const newFlat = await Flat.create({name: req.body.flatName, users: req.body.flatMembers});
+        const newFlat = await Flat.create({name: req.body.flatName, users: req.body.flatMembers, owner: req.session.user});
+        console.log("IS THIS THE USER ID?", req.session.user);
         res.redirect('flat')
     } catch (err){ 
         next(err);
