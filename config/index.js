@@ -1,9 +1,15 @@
 // We reuse this import in order to have access to the `body` property in requests
 const express = require("express");
 
+const session = require("express-session");
+
 // ℹ️ Responsible for the messages you see in the terminal as requests are coming in
 // https://www.npmjs.com/package/morgan
 const logger = require("morgan");
+
+// Handles the handlebars
+// https://www.npmjs.com/package/hbs
+const hbs = require("hbs");
 
 // ℹ️ Needed when we deal with cookies (we will when dealing with authentication)
 // https://www.npmjs.com/package/cookie-parser
@@ -17,6 +23,9 @@ const favicon = require("serve-favicon");
 // https://www.npmjs.com/package/path
 const path = require("path");
 
+const MongoStore = require("connect-mongo");
+const { MONGO_URI } = require("../db");
+
 // Middleware configuration
 module.exports = (app) => {
   // In development environment the app logs
@@ -26,6 +35,22 @@ module.exports = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
+
+  app.use(
+    session({
+      secret: process.env.SESS_SECRET,
+      store: MongoStore.create({ mongoUrl: MONGO_URI}),
+        resave: true,
+        saveUninitialized: false,
+
+      cookie: {
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        maxAge: 600000, // 60 * 1000 * 10 ms === 10 min
+      },
+    })
+  )
 
   // Normalizes the path to the views folder
   app.set("views", path.join(__dirname, "..", "views"));
