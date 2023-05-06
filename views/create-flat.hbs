@@ -1,20 +1,18 @@
 <section>
-    <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1>
-</section>
-<section>
-    <h2>Your flat:</h2>
-    <p>You are currently in no flat</p>
+    {{!-- <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1> --}}
+    <h1>Welcome, {{userFromSession.name}}</h1>
 </section>
 <section>
     <h1>Create flat</h1>
-    <form action="/flat/create" method="post" >
-        <input type="name" name="flat-name" value="" placeholder="Name">
-        <select name="flatmates" placeholder="members" multiple>
-            {{#each flatmates}}
-                <option value="{{id}}">{{name}}</option>
+   <form action="/flat" method="post">
+        <input type="text" name="flatName" placeholder="flat name">
+        <label for="flatmembers">Choose flatmates</label>
+        <select name="flatMembers" id="flatmembers" multiple>
+            {{#each allUsers}}
+            <option value="{{_id}}">{{username}}</option>
             {{/each}}
         </select>
-        <button type="submit">create flat</button>
+        <button>Create flat</button>
     </form>
     {{#if error}}
         {{error}}

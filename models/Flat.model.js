@@ -10,14 +10,21 @@ const flatSchema = new Schema(
     
     owner: { type: Schema.Types.ObjectId },
 
-    users: [{ type: Schema.Types.ObjectId, ref: "User" }]
-    },
-
-   {
+    users: [{type: Schema.Types.ObjectId, ref: "User"}]
+  },
+  
+  {
     timestamps: true
   }
-);
-
+  );
+  
 const Flat = model("Flat", flatSchema);
 
 module.exports = Flat;
+
+
+//   users: [ { username: {
+//     type: String
+//   }, 
+//   _id: { type: Schema.Types.ObjectId, ref: "User" }
+// }]    

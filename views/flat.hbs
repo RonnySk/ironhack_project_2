@@ -1,5 +1,6 @@
 <section>
-    <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1>
+    {{!-- <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1> --}}
+        <h1>Welcome, {{userFromSession.name}}</h1>
     {{!-- {{#if announcement}}
         <div class="announcement">
             {{announcement}}
@@ -14,31 +15,22 @@
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
-    <form action="/flat" method="post">
-        <input type="text" name="flatName" placeholder="flat name">
-        <label for="flatmembers">Choose flatmates</label>
-        <select name="flatMembers" id="flatmembers" multiple>
-            {{#each allUsers}}
-            <option value="{{_id}}">{{username}}</option>
-            {{/each}}
-        </select>
-        <button>Create flat</button>
-    </form>
+   
     <h2>Your flatmates:</h2>
-    {{!-- {{#if flatMates}}
+ 
         <ul class="list-flatmates">
-            {{#each flatMates}}
+           {{#each users}}
                 <li>
                     <figure class="user">
-                        {{#if this.image}}
+                        {{!-- {{#if this.image}}
                             <img src="{{this.image}}" alt="{{this.name}}" />
-                        {{/if}}
-                        <figcaption class="name">{{this.name}}</figcaption>
+                        {{/if}} --}}
+                        <figcaption class="name">{{users}} teste</figcaption>
+                        
                     </figure>
                 </li>
             {{/each}}
         </ul>
-    {{/if}} --}}
 </section>
 <section>
     <h2>This week’s tasks:</h2>

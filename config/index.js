@@ -50,7 +50,12 @@ module.exports = (app) => {
         maxAge: 600000, // 60 * 1000 * 10 ms === 10 min
       },
     })
-  )
+  );
+
+  app.use((req, res, next)=>{
+    res.locals.userFromSession = req.session.user
+    next()
+    }) 
 
   // Normalizes the path to the views folder
   app.set("views", path.join(__dirname, "..", "views"));
