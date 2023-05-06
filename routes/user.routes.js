@@ -138,13 +138,3 @@ router.post('/flat/:id', async (req, res, next) => {
 });
 
 module.exports = router;
-
-// router.get('/:id', async (req,res) => {
-//     try {
-//         const oneMovie = await MovieModel.findById(req.params.id).populate("cast");
-//         // console.log("params", oneMovie)
-//         res.render('movies/movie-details', {oneMovie})
-//     } catch {(err) =>
-//         console.log("Error to acess the movie by ID on DB: ", err)
-//         };
-// });
