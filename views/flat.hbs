@@ -18,14 +18,16 @@
    
     <h2>Your flatmates:</h2>
  
-        <ul class="list-flatmates">
-           {{#each users}}
+        <ul class="list-flatmates unstyled">
+           {{#each flat.users}}
                 <li>
                     <figure class="user">
-                        {{!-- {{#if this.image}}
-                            <img src="{{this.image}}" alt="{{this.name}}" />
-                        {{/if}} --}}
-                        <figcaption class="name">{{users}} teste</figcaption>
+                        {{#if image}}
+                            <img src="{{image}}" alt="{{username}}" />
+                        {{else}}
+                            <img src="/images/sad-puppy.jpg" alt="{{username}}" />
+                        {{/if}}
+                        <figcaption class="name">{{username}}</figcaption>
                         
                     </figure>
                 </li>
@@ -64,10 +66,10 @@
 </section>
 <section class="add-task">
     <h2>Add task</h2>
-    <form action="" method="post">
-        <input type="text" name="task-name" value="" placeholder="Name">
-        <input type="text" name="task-description" value="" placeholder="Description">
-        <select name="task-user">
+    <form action="/add-task" method="post">
+        <input type="text" name="taskname" value="" placeholder="Name">
+        <input type="text" name="taskdescription" value="" placeholder="Description">
+        <select name="taskuser">
             <option value="placeholder" disabled selected hidden>assign to flatmate</option>
         </select>
         <button>add task</button>

@@ -135,7 +135,7 @@ figure.user img {
 }
 
 figure.user figcaption {
-  margin: 0 auto;
+  margin: 1rem auto 0;
 }
 
 
