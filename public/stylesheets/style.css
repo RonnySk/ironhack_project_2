@@ -32,6 +32,10 @@ h1 {
   font-size: 2rem;
 }
 
+h1 .name {
+  text-transform: capitalize;
+}
+
 h2 {
   font-size: var(--font-size-base);
   margin-bottom: 0.75rem;

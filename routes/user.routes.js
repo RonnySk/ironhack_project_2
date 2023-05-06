@@ -57,7 +57,11 @@ router.post('/login', async (req, res, next) => {
 			name: user.username,
 		};
 
-		res.redirect('flat');
+		const flat = await Flat.findOne({ users: req.session.user.id }).populate(
+			'users'
+		);
+
+		res.redirect('flat/' + flat.id);
 	} catch (err) {
 		next(err);
 	}
@@ -65,14 +69,15 @@ router.post('/login', async (req, res, next) => {
 
 // flat route
 
-router.get('/flat', isLoggedIn, isPartOfFlat, async (req, res) => {
+router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res) => {
+	const { id } = req.params.id;
 	console.log('req session', req.session);
 	const flat = await Flat.findOne({ users: req.session.user.id }).populate(
 		'users'
 	);
 	// console.log("flat", flat)
 	const allUsers = await User.find();
-	res.render('flat', { allUsers, flat });
+	res.render('flat/flat-details', { allUsers, flat });
 });
 
 router.post('/flat', async (req, res, next) => {
@@ -118,7 +123,7 @@ router.post('/add-task', async (req, res, next) => {
 		name: req.body.taskname,
 		description: req.body.taskdescription,
 		user: req.body.taskuser,
-		// flatId:,
+		flatId: req.params.id,
 	});
 	try {
 	} catch (err) {

@@ -1,6 +1,7 @@
 <section>
     {{!-- <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1> --}}
-        <h1>Welcome, {{userFromSession.name}}</h1>
+        <h1>Welcome, <span class="name">{{userFromSession.name}}</span></h1>
+        <h1>THIS IS THE NEW FLAT PAGE</h1>
     {{!-- {{#if announcement}}
         <div class="announcement">
             {{announcement}}
@@ -71,6 +72,9 @@
         <input type="text" name="taskdescription" value="" placeholder="Description">
         <select name="taskuser">
             <option value="placeholder" disabled selected hidden>assign to flatmate</option>
+            {{#each flat.users}}
+                <option value="{{id}}">{{username}}</option>
+            {{/each}}
         </select>
         <button>add task</button>
     </form>
