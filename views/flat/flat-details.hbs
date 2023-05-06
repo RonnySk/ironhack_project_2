@@ -42,8 +42,10 @@
             {{#each tasks}}
                 <li>
                     <figure class="user">
-                        {{#if this.image}}
-                            <img src="{{this.image}}" alt="{{this.name}}" />
+                        {{#if image}}
+                            <img src="{{image}}" alt="{{username}}" />
+                        {{else}}
+                            <img src="/images/sad-puppy.jpg" alt="{{username}}" />
                         {{/if}}
                         <figcaption class="name">{{this.name}}</figcaption>
                     </figure>
