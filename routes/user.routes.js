@@ -2,6 +2,7 @@ const bcryptjs = require("bcryptjs");
 const router = require("express").Router();
 const isLoggedOut = require("../middlewares/isLoggedOut");
 const isLoggedIn = require("../middlewares/isLoggedIn");
+const isPartOfFlat = require("../middlewares/isPartOfFlat");
 const User = require("../models/User.model");
 const Flat = require("../models/Flat.model");
 const Task = require("../models/Task.model");
@@ -43,7 +44,7 @@ router.post("/login", async (req, res, next) => {
         if(!passwordsMatch) {
             return res.render("auth/login", {error: "Sorry the password is incorrect!"})
         }
-        //console.log(`This is the user: ${user}`);
+             
         req.session.user = user._id;
         res.redirect('flat')
     } catch (err){ 
@@ -51,24 +52,14 @@ router.post("/login", async (req, res, next) => {
     }
 })
 
-router.get('/flat', isLoggedIn, async (req, res) => {
+// flat route
+
+router.get('/flat', isLoggedIn, isPartOfFlat, async (req, res) => {
+    const flat = await Flat.findOne({users: req.session.user});
+    // console.log("our Flat, ", flat);
     const allUsers = await User.find();
-    //console.log(allUsers);
-    res.render('flat', {allUsers});
+    res.render('flat', {allUsers, flat});
 });
-
-
-// router.get('/:id', async (req,res) => {
-//     try {
-//         const oneMovie = await MovieModel.findById(req.params.id).populate("cast");
-//         // console.log("params", oneMovie)
-//         res.render('movies/movie-details', {oneMovie})
-//     } catch {(err) =>
-//         console.log("Error to acess the movie by ID on DB: ", err)
-//         }; 
-// });
-
-
 
 
 router.post('/flat', async (req, res, next) => {
@@ -79,8 +70,26 @@ router.post('/flat', async (req, res, next) => {
     } catch (err){ 
         next(err);
     }
-})
+});
+
+// create-flat route
+
+router.get('/create-flat', (req, res) => {
+    res.render("create-flat");
+});
+
 
 module.exports = router;
 
 
+
+    
+    // router.get('/:id', async (req,res) => {
+    //     try {
+    //         const oneMovie = await MovieModel.findById(req.params.id).populate("cast");
+    //         // console.log("params", oneMovie)
+    //         res.render('movies/movie-details', {oneMovie})
+    //     } catch {(err) =>
+    //         console.log("Error to acess the movie by ID on DB: ", err)
+    //         }; 
+    // });
