@@ -69,20 +69,17 @@ router.post('/login', async (req, res, next) => {
 
 // flat route
 
-router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res) => {
-	const { id } = req.params.id;
-	// console.log('req session', req.session);
-	const flat = await Flat.findOne({ users: req.session.user.id }).populate(
-		'users'
-	);
-	// console.log("flat", flat)
-	const allUsers = await User.find();
-	const tasks = await Task.find({ flatId: req.params.id }).populate( 'user');
-	
-
-		console.log("tasks on DB by flat", tasks)
+router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
+	try { 
+		const { id } = req.params.id;
+		const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
+		const allUsers = await User.find();
+		const tasks = await Task.find({ flatId: req.params.id }).populate( 'user');
 
 	res.render('flat/flat-details', { allUsers, flat, tasks });
+} catch (err) {
+	next(err);
+}
 });
 
 router.post('/flat', async (req, res, next) => {
@@ -141,5 +138,13 @@ router.post('/flat/:id', async (req, res, next) => {
 		next(err);
 	}
 });
+
+// delete task route
+
+
+
+// update task route
+
+// delete User route
 
 module.exports = router;
