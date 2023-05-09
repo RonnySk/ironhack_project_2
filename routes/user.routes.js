@@ -42,10 +42,7 @@ router.post('/login', async (req, res, next) => {
 		if (!user) {
 			return res.render('auth/login', { error: 'User not existent!' });
 		}
-		const passwordsMatch = await bcryptjs.compare(
-			req.body.password,
-			user.password
-		);
+		const passwordsMatch = await bcryptjs.compare(req.body.password, user.password);
 		if (!passwordsMatch) {
 			return res.render('auth/login', {
 				error: 'Sorry the password is incorrect!',
@@ -57,9 +54,7 @@ router.post('/login', async (req, res, next) => {
 			name: user.username,
 		};
 
-		const flat = await Flat.findOne({ users: req.session.user.id }).populate(
-			'users'
-		);
+		const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
 
 		res.redirect('flat/' + flat.id);
 	} catch (err) {
@@ -70,16 +65,16 @@ router.post('/login', async (req, res, next) => {
 // flat route
 
 router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
-	try { 
+	try {
 		const { id } = req.params.id;
 		const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
 		const allUsers = await User.find();
-		const tasks = await Task.find({ flatId: req.params.id }).populate( 'user');
+		const tasks = await Task.find({ flatId: req.params.id }).populate('user');
 
-	res.render('flat/flat-details', { allUsers, flat, tasks });
-} catch (err) {
-	next(err);
-}
+		res.render('flat/flat-details', { allUsers, flat, tasks });
+	} catch (err) {
+		next(err);
+	}
 });
 
 router.post('/flat', async (req, res, next) => {
@@ -97,10 +92,35 @@ router.post('/flat', async (req, res, next) => {
 
 // create-flat route
 
-router.get('/create-flat', async (req, res) => {
+router.get('/create-flat', async (req, res, next) => {
 	try {
 		const allUsers = await User.find();
 		res.render('create-flat', { allUsers });
+	} catch (err) {
+		next(err);
+	}
+});
+
+// edit flatname route
+
+router.get('/flat/:id/edit', async (req, res, next) => {
+	try {
+		const flatToEdit = await Flat.findById(req.params.id);
+		res.render('flat/edit-flatname', { flatToEdit });
+		console.log('flat to edit is:', flatToEdit);
+	} catch (err) {
+		next(err);
+	}
+});
+
+// update flatname route
+
+router.post('/flat/:id/update', async (req, res, next) => {
+	try {
+		const newFlatName = req.body.flatName;
+		const updatedFlat = await Flat.updateOne({ name: newFlatName });
+		//await updatedFlat.save();
+		res.redirect('/flat/' + req.params.id);
 	} catch (err) {
 		next(err);
 	}
@@ -121,9 +141,7 @@ router.post('/logout', (req, res, next) => {
 // add task route
 
 router.post('/flat/:id', async (req, res, next) => {
-	const flat = await Flat.findOne({ users: req.session.user.id }).populate(
-		'users'
-	);
+	const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
 
 	const newTask = await Task.create({
 		name: req.body.taskname,
@@ -140,8 +158,6 @@ router.post('/flat/:id', async (req, res, next) => {
 });
 
 // delete task route
-
-
 
 // update task route
 

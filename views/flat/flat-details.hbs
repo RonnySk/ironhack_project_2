@@ -12,6 +12,7 @@
     {{flat.name}}
     {{#if flat}}
         <p>{{name}}</p>
+        <a href="/flat/{{flat.id}}/edit" class="btn btn-edit-flatname">edit flatname</a>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
@@ -28,10 +29,11 @@
                             <img src="/images/sad-puppy.jpg" alt="{{username}}" />
                         {{/if}}
                         <figcaption class="name">{{username}}</figcaption>
-                        
                     </figure>
+                    <button class="btn-delete-flatmate">delete flatmate</button>
                 </li>
             {{/each}}
+            <li><button class="btn-add-flatmate">add flatmate</button></li>
         </ul>
 </section>
 <section>
