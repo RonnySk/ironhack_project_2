@@ -71,13 +71,18 @@ router.post('/login', async (req, res, next) => {
 
 router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res) => {
 	const { id } = req.params.id;
-	console.log('req session', req.session);
+	// console.log('req session', req.session);
 	const flat = await Flat.findOne({ users: req.session.user.id }).populate(
 		'users'
 	);
 	// console.log("flat", flat)
 	const allUsers = await User.find();
-	res.render('flat/flat-details', { allUsers, flat });
+	const tasks = await Task.find({ flatId: req.params.id }).populate( 'user');
+	
+
+		console.log("tasks on DB by flat", tasks)
+
+	res.render('flat/flat-details', { allUsers, flat, tasks });
 });
 
 router.post('/flat', async (req, res, next) => {

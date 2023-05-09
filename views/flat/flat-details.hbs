@@ -1,8 +1,7 @@
 <section>
     {{!-- <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1> --}}
         <h1>Welcome, <span class="name">{{userFromSession.name}}</span></h1>
-        <h1>THIS IS THE NEW FLAT PAGE</h1>
-    {{!-- {{#if announcement}}
+   {{!-- {{#if announcement}}
         <div class="announcement">
             {{announcement}}
         </div>
@@ -37,7 +36,7 @@
 </section>
 <section>
     <h2>This week’s tasks:</h2>
-    {{!-- {{#if tasks}}
+    {{#if tasks}}
         <ul class="list-tasks">
             {{#each tasks}}
                 <li>
@@ -45,19 +44,19 @@
                         {{#if image}}
                             <img src="{{image}}" alt="{{username}}" />
                         {{else}}
-                            <img src="/images/sad-puppy.jpg" alt="{{username}}" />
+                            <img src="/images/sad-mini-pig.jpg" alt="{{username}}" />
                         {{/if}}
-                        <figcaption class="name">{{this.name}}</figcaption>
+                        <figcaption class="name">{{this.user.username}}</figcaption>
                     </figure>
                     <p class="task">
-                        <strong>{{this.task.name}}</strong><br>
-                        <small>{{this.task.description}}</small>
+                        <strong>{{this.name}}</strong><br>
+                        <small>{{this.description}}</small>
                     </p>
                     <div class="status">
-                        {{#if !this.task.isDone}}
-                            <button class="btn btn-update-task">🔲</button>
-                        {{else}}
+                        {{#if this.isdone}}
                             <button class="btn btn-update-task">✅</button>
+                        {{else}}
+                            <button class="btn btn-update-task">🔲</button>
                         {{/if}}
                     </div>
                 </li>
@@ -65,7 +64,7 @@
         </ul>
     {{else}}
         <p>No tasks yet.</p>
-    {{/if}} --}}
+    {{/if}}
 </section>
 <section class="add-task">
     <h2>Add task</h2>
