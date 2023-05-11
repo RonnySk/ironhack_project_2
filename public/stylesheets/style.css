@@ -16,10 +16,12 @@
 
 body {
   color: var(--color-text);
+  display: flex;
+  flex-direction: column;
   font: var(--font-size-base) Helvetica, sans-serif;
   margin: 0;
+  min-height: 100vh;
   padding: 0;
-  min-height: calc(100vh - var(--header-height));
 }
 
 /*----- TYPOGRAPHY -----*/
@@ -87,12 +89,15 @@ header {
   left: 0;
   top: 0;
   right: 0;
+  z-index: 10;
 }
 
 main {
   padding: calc(var(--base-spacing) * 2) var(--base-spacing) calc(var(--base-spacing) * 4);
   max-width: 750px;
   margin: var(--header-height) auto 0;
+  width: calc(100% - var(--base-spacing) * 2);
+  flex: 1;
 }
 
 main .logo {
@@ -153,6 +158,7 @@ figure.user figcaption {
 
 .list-flatmates li {
   flex: 0 0 calc(20% - (var(--base-spacing)*4/5));
+  position: relative;
 }
 
 .list-flatmates .user {
@@ -198,6 +204,9 @@ textarea {
   box-sizing: border-box;
   width: 100%;
 }
+
+
+/*----- BUTTONS -----*/
 
 .btn,
 button,
@@ -245,4 +254,89 @@ input[type="submit"]:hover,
 input[type="submit"]:focus,
 input[type="submit"]:active {
   background-color: var(--color-primary);
+}
+
+
+/*----- BUTTONS EDIT MODE -----*/
+
+.btn-edit {
+  display: none;
+}
+
+.edit-mode .btn-edit {
+  display: block;
+}
+
+.btn-add-flatmate {
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  height: 80px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  text-indent: -9999px;
+  transform: scale(1);
+  transition: transform 0.2s ease;
+  width: 80px;
+}
+
+.edit-mode .list-flatmates li:hover button:before {
+  transform: scale(1.4);
+  background-color: red;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.btn-add-flatmate:hover,
+.btn-add-flatmate:focus,
+.btn-add-flatmate:active {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+}
+
+.btn-add-flatmate:before {
+  content: "+";
+  display: block;
+  font-size: 4rem;
+  height: 100%;
+  line-height: 4.5rem;
+  text-indent: 0;
+  width: 100%;
+}
+
+.list-flatmates form.delete-flatmate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  width: 100%;
+}
+
+.btn-delete-flatmate {
+  background-color: transparent;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+.btn-delete-flatmate:before {
+  content: "–";
+  text-indent: 0;
+  width: 30px;
+  height: 30px;
+  display: block;
+  position: absolute;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  top: 0;
+  right: 16px;
+}
+
+.btn-delete-flatmate:hover,
+.btn-delete-flatmate:focus,
+.btn-delete-flatmate:active {
+  background-color: transparent;
 }

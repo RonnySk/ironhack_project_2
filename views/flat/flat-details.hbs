@@ -12,13 +12,12 @@
     {{flat.name}}
     {{#if flat}}
         <p>{{name}}</p>
-        <a href="/flat/{{flat._id}}/edit" class="btn btn-edit-flatname">edit flatname</a>
+        <a href="/flat/{{flat._id}}/edit" class="btn btn-edit">edit flatname</a>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
    
     <h2>Your flatmates:</h2>
- 
         <ul class="list-flatmates unstyled">
            {{#each flat.users}}
                 <li>
@@ -30,12 +29,12 @@
                         {{/if}}
                         <figcaption class="name">{{username}}</figcaption>
                     </figure>
-                    <form action="/flat/{{../flat._id}}/user/{{_id}}/delete" method="post">
-                        <button type="submit">delete flatmate</button>
+                    <form class="delete-flatmate" action="/flat/{{../flat._id}}/user/{{_id}}/delete" method="post">
+                        <button type="submit" class="btn btn-edit btn-delete-flatmate">delete flatmate</button>
                     </form>
                 </li>
             {{/each}}
-            <li><a href="/flat/{{flat._id}}/add-flatmate" class="btn-add-flatmate">add flatmate</a></li>
+            <li><a href="/flat/{{flat._id}}/add-flatmate" class="btn btn-add-flatmate">add flatmate</a></li>
         </ul>
 </section>
 <section>
