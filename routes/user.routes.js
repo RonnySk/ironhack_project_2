@@ -132,25 +132,36 @@ router.post('/flat/:flatId/user/:userId/delete', async (req, res, next) => {
 	try {
 		const { flatId, userId } = req.params;
 		const flat = await Flat.findByIdAndUpdate(flatId, { $pull: { users: userId } }, { new: true });
-
-		console.log(`
-		BEFORE DELETE:
-		flat: ${flat};
-		userId: ${userId};
-		`);
-
-		//const userToDelete = await flat.users.pull({ _id: userId });
-		// const flatWithDeletedUser = await userToDelete.save();
-
-		// console.log(`
-		// AFTER DELETE:
-		// flat: ${flat};
-		// userId: ${userId};
-		// `);
 		res.redirect('/flat/' + flat.id);
+	} catch (err) {
+		next(err);
+	}
+});
 
-		// const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
-		// res.redirect('flat/' + flat.id);
+// add flatmate route
+router.get('/flat/:id/add-flatmate', async (req, res, next) => {
+	try {
+		const flat = await Flat.findById(req.params.id);
+		const allUsers = await User.find();
+		// const currentFlatMembers = flat.users.id;
+		// console.log('---- currentFlatMembers ARE THESE:', currentFlatMembers);
+		// console.log('---- allUsers ARE THESE:', allUsers);
+		//const allUsersMinusFlatMembers = await allUsers.pull({ currentFlatMembers });
+
+		res.render('flat/add-flatmate', { flat, allUsers });
+		console.log('flat to add person to is:', flat);
+	} catch (err) {
+		next(err);
+	}
+});
+
+router.post('/flat/:flatId/add-flatmate', async (req, res, next) => {
+	try {
+		const { flatId } = req.params;
+		const { newFlatMate } = req.body;
+		console.log('NEW FLATMATE (req.body) IS', newFlatMate);
+		const flat = await Flat.findByIdAndUpdate(flatId, { $push: { users: newFlatMate } }, { new: true });
+		res.redirect('/flat/' + flat.id);
 	} catch (err) {
 		next(err);
 	}

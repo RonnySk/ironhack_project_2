@@ -1,5 +1,7 @@
 edit flat
-- name + desc + flatmates (admin only)
+- ~~name~~
+- ~~flatmates~~
+- ~~delete flatmate~~
 - delete flat (admin only)
 - 
 

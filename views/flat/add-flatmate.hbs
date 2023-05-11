@@ -1,0 +1,15 @@
+<section>
+    <h1>Add another flatmate</h1>
+   <form action="/flat/{{flat.id}}/add-flatmate" method="post">
+        <label for="newFlatMate">Choose flatmate</label>
+        <select name="newFlatMate" id="newFlatMembers">
+            {{#each allUsers}}
+            <option value="{{_id}}">{{username}}</option>
+            {{/each}}
+        </select>
+        <button>Add flatmate(s)</button>
+    </form>
+    {{#if error}}
+        {{error}}
+    {{/if}}
+</section>
