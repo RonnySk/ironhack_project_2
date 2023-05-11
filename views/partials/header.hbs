@@ -1,10 +1,12 @@
 <header>
     {{#if userFromSession}}
     <a class="logo" href="/flat">🥨</a>    
-    <button class="toggle-edit-mode">Edit</button>
-    <form action="/logout" method="post">
-        <button type="submit">Logout</button>
-    </form>
+    <div class="btn-group">
+        <button class="toggle-edit-mode">Edit</button>
+        <form action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
     {{else}}
     <a class="logo" href="/">🥨</a>    
     {{/if}}

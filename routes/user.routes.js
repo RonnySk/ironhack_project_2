@@ -128,10 +128,10 @@ router.post('/flat/:id/update', async (req, res, next) => {
 
 // delete flatmate route
 
-router.post('/flat/:id/delete', async (req, res, next) => {
+router.post('/flat/:flatId/user/:userId/delete', async (req, res, next) => {
 	try {
-		const userId = req.params.id;
-		const flat = await Flat.findOne({ users: userId });
+		const { flatId, userId } = req.params;
+		const flat = await Flat.findByIdAndUpdate(flatId, { $pull: { users: userId } }, { new: true });
 
 		console.log(`
 		BEFORE DELETE:
@@ -139,16 +139,15 @@ router.post('/flat/:id/delete', async (req, res, next) => {
 		userId: ${userId};
 		`);
 
-		const userToDelete = await flat.users.pull({ _id: userId });
-		const flatWithDeletedUser = await userToDelete.save();
+		//const userToDelete = await flat.users.pull({ _id: userId });
+		// const flatWithDeletedUser = await userToDelete.save();
 
-		console.log(`
-		AFTER DELETE:
-		flat: ${flat};
-		userId: ${userId};
-		userToDelete: ${userToDelete}
-		`);
-		res.redirect('/flat');
+		// console.log(`
+		// AFTER DELETE:
+		// flat: ${flat};
+		// userId: ${userId};
+		// `);
+		res.redirect('/flat/' + flat.id);
 
 		// const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
 		// res.redirect('flat/' + flat.id);

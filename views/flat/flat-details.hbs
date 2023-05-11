@@ -12,7 +12,7 @@
     {{flat.name}}
     {{#if flat}}
         <p>{{name}}</p>
-        <a href="/flat/{{flat.id}}/edit" class="btn btn-edit-flatname">edit flatname</a>
+        <a href="/flat/{{flat._id}}/edit" class="btn btn-edit-flatname">edit flatname</a>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
@@ -30,7 +30,7 @@
                         {{/if}}
                         <figcaption class="name">{{username}}</figcaption>
                     </figure>
-                    <form action="/flat/{{_id}}/delete" method="post">
+                    <form action="/flat/{{../flat._id}}/user/{{_id}}/delete" method="post">
                         <button type="submit">delete flatmate</button>
                     </form>
                 </li>

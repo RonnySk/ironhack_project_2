@@ -224,6 +224,11 @@ input[type="submit"]:not(:last-child) {
   margin-bottom: var(--base-spacing);
 }
 
+.btn-group {
+  display: flex;
+  column-gap: var(--base-spacing);
+}
+
 header .btn,
 header button,
 header input[type="submit"] {
