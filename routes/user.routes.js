@@ -117,10 +117,41 @@ router.get('/flat/:id/edit', async (req, res, next) => {
 
 router.post('/flat/:id/update', async (req, res, next) => {
 	try {
-		const newFlatName = req.body.flatName;
-		const updatedFlat = await Flat.updateOne({ name: newFlatName });
-		//await updatedFlat.save();
-		res.redirect('/flat/' + req.params.id);
+		const flatId = req.params.id;
+		const { name } = req.body;
+		const updatedFlat = await Flat.findByIdAndUpdate(flatId, { name }, { new: true });
+		res.redirect('/flat/' + flatId);
+	} catch (err) {
+		next(err);
+	}
+});
+
+// delete flatmate route
+
+router.post('/flat/:id/delete', async (req, res, next) => {
+	try {
+		const userId = req.params.id;
+		const flat = await Flat.findOne({ users: userId });
+
+		console.log(`
+		BEFORE DELETE:
+		flat: ${flat};
+		userId: ${userId};
+		`);
+
+		const userToDelete = await flat.users.pull({ _id: userId });
+		const flatWithDeletedUser = await userToDelete.save();
+
+		console.log(`
+		AFTER DELETE:
+		flat: ${flat};
+		userId: ${userId};
+		userToDelete: ${userToDelete}
+		`);
+		res.redirect('/flat');
+
+		// const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
+		// res.redirect('flat/' + flat.id);
 	} catch (err) {
 		next(err);
 	}

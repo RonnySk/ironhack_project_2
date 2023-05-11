@@ -30,7 +30,9 @@
                         {{/if}}
                         <figcaption class="name">{{username}}</figcaption>
                     </figure>
-                    <button class="btn-delete-flatmate">delete flatmate</button>
+                    <form action="/flat/{{_id}}/delete" method="post">
+                        <button type="submit">delete flatmate</button>
+                    </form>
                 </li>
             {{/each}}
             <li><button class="btn-add-flatmate">add flatmate</button></li>
