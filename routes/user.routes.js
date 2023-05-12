@@ -23,7 +23,6 @@ router.post('/signup', async (req, res, next) => {
 			password: hash,
 		});
 		await newUser.save();
-		// console.log(newUser)
 		res.render('auth/login', newUser);
 	} catch (err) {
 		next(err);
@@ -101,7 +100,7 @@ router.get('/create-flat', async (req, res, next) => {
 	}
 });
 
-// edit flatname route
+// edit name of flat route
 
 router.get('/flat/:id/edit', async (req, res, next) => {
 	try {
@@ -113,7 +112,7 @@ router.get('/flat/:id/edit', async (req, res, next) => {
 	}
 });
 
-// update flatname route
+// update name of flat route
 
 router.post('/flat/:id/update', async (req, res, next) => {
 	try {
@@ -142,12 +141,7 @@ router.post('/flat/:flatId/user/:userId/delete', async (req, res, next) => {
 router.get('/flat/:id/add-flatmate', async (req, res, next) => {
 	try {
 		const flat = await Flat.findById(req.params.id);
-		let allUsers = await User.find();
-		//let allUsers = await User.updateMany({ $pull: { id: { $in: flat.users } } });
-
-		console.log('CURRENT FLAT MEMBERS:', flat.users);
-		console.log('ALL USERS:', allUsers);
-
+		const allUsers = await User.find({ _id: { $nin: flat.users } });
 		res.render('flat/add-flatmate', { flat, allUsers });
 	} catch (err) {
 		next(err);
@@ -158,7 +152,6 @@ router.post('/flat/:flatId/add-flatmate', async (req, res, next) => {
 	try {
 		const { flatId } = req.params;
 		const { newFlatMate } = req.body;
-		console.log('NEW FLATMATE (req.body) IS', newFlatMate);
 		const flat = await Flat.findByIdAndUpdate(flatId, { $push: { users: newFlatMate } }, { new: true });
 		res.redirect('/flat/' + flat.id);
 	} catch (err) {
