@@ -54,8 +54,11 @@ router.post('/login', async (req, res, next) => {
 		};
 
 		const flat = await Flat.findOne({ users: req.session.user.id }).populate('users');
-
-		res.redirect('flat/' + flat.id);
+		if (flat) {
+			res.redirect('flat/' + flat.id);
+		} else {
+			res.redirect('flat/flat-details');
+		}
 	} catch (err) {
 		next(err);
 	}
@@ -83,7 +86,7 @@ router.post('/flat', async (req, res, next) => {
 			users: req.body.flatMembers,
 			owner: req.session.user.id,
 		});
-		res.redirect('flat');
+		res.redirect('flat/' + newFlat.id);
 	} catch (err) {
 		next(err);
 	}
@@ -94,7 +97,7 @@ router.post('/flat', async (req, res, next) => {
 router.get('/create-flat', async (req, res, next) => {
 	try {
 		const allUsers = await User.find();
-		res.render('create-flat', { allUsers });
+		res.render('flat/create-flat', { allUsers });
 	} catch (err) {
 		next(err);
 	}
