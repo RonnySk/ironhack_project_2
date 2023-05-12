@@ -142,14 +142,13 @@ router.post('/flat/:flatId/user/:userId/delete', async (req, res, next) => {
 router.get('/flat/:id/add-flatmate', async (req, res, next) => {
 	try {
 		const flat = await Flat.findById(req.params.id);
-		const allUsers = await User.find();
-		// const currentFlatMembers = flat.users.id;
-		// console.log('---- currentFlatMembers ARE THESE:', currentFlatMembers);
-		// console.log('---- allUsers ARE THESE:', allUsers);
-		//const allUsersMinusFlatMembers = await allUsers.pull({ currentFlatMembers });
+		let allUsers = await User.find();
+		//let allUsers = await User.updateMany({ $pull: { id: { $in: flat.users } } });
+
+		console.log('CURRENT FLAT MEMBERS:', flat.users);
+		console.log('ALL USERS:', allUsers);
 
 		res.render('flat/add-flatmate', { flat, allUsers });
-		console.log('flat to add person to is:', flat);
 	} catch (err) {
 		next(err);
 	}
