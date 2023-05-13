@@ -76,12 +76,22 @@ router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
 		const { id } = req.params.id;
 		const flat = await Flat.findById({ _id: req.params.id }).populate('users');
 		const allUsers = await User.find();
-		const tasks = await Task.find({ flatId: req.params.id }).populate('user');
+		const tasks = await Task.find({ flatId: req.params.id }).populate('user').lean();
+		const updatedTasks = tasks.map((task) => {
+			if (task.user._id.toString === req.session.user.id) {
+				task.isOwner = true;
+			} else {
+				task.isOwner = false;
+			}
+			return task;
+		});
+
+		console.log(updatedTasks);
 
 		if (flat.owner == req.session.user.id) {
-			res.render('flat/flat-details', { allUsers, flat, tasks, userIsAdmin: true });
+			res.render('flat/flat-details', { allUsers, flat, tasks, updatedTasks, userIsAdmin: true });
 		} else {
-			res.render('flat/flat-details', { allUsers, flat, tasks, userIsAdmin: false });
+			res.render('flat/flat-details', { allUsers, flat, tasks, updatedTasks, userIsAdmin: false });
 		}
 	} catch (err) {
 		next(err);
@@ -94,7 +104,7 @@ router.post('/create-flat', async (req, res, next) => {
 	try {
 		const newFlat = await Flat.create({
 			name: req.body.flatName,
-			users: req.body.flatMembers,
+			users: (req.body.flatMembers, req.session.user.id),
 			owner: req.session.user.id,
 		});
 		res.redirect('flat/' + newFlat.id);

@@ -44,9 +44,9 @@
 </section>
 <section>
     <h2>This week’s tasks:</h2>
-    {{#if tasks}}
+    {{#if updatedTasks}}
         <ul class="list-tasks">
-            {{#each tasks}}
+            {{#each updatedTasks}}
                 <li>
                     <figure class="user">
                         {{#if image}}
@@ -59,35 +59,29 @@
                     <p class="task">
                         <strong>{{this.name}}</strong><br>
                         <small>{{this.description}}</small>
+                       {{isOwner}} 
                     </p>
                     <form class="edit-mode-show delete-task" action="/flat/{{../flat._id}}/task/{{_id}}/delete" method="post">
                         <button type="submit" class="btn btn-edit">delete task</button>
                     </form>
                     <div class="status">
-                        user from session: {{../userFromSession.id}}<br>
-                        user: {{user._id}}
-
-                        {{!-- {{#ifEquals ../userFromSession.id user._id}}
-                            same!
-                        {{/if}} --}}
-
-                        {{!-- {{#if ../userFromSession.id === user._id}}
-                            button
-                            <form action="/flat/{{../flat._id}}/task/{{_id}}/update" method="post">
+                        {{#if isOwner}}
+                            isowner!
+                            {{!-- <form action="/flat/{{../flat._id}}/task/{{_id}}/update" method="post">
                                 {{#if this.isDone}}
                                     <button class="btn btn-update-task">✅</button>
                                 {{else}}
                                     <button class="btn btn-update-task">🔲</button>
                                 {{/if}}
-                            </form>
+                            </form> --}}
                         {{else}}
-                            no button
-                            {{#if this.isDone}}
+                            isnot
+                            {{!-- {{#if this.isDone}}
                                 <div class="task-status">✅</div>
                             {{else}}
                                 <div class="task-status">🔲</div>
-                            {{/if}}
-                        {{/if}} --}}
+                            {{/if}} --}}
+                        {{/if}}
                     </div>
                 </li>
             {{/each}} 

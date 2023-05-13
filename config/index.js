@@ -61,15 +61,6 @@ module.exports = (app) => {
 	app.set('views', path.join(__dirname, '..', 'views'));
 	// access to the handlebars partials folder
 	hbs.registerPartials(path.join(__dirname, '..', 'views/partials'));
-
-	// register hbs helpers
-	hbs.registerHelper('ifEquals', function (a, b, options) {
-		if (a === b) {
-			return options.fn(this);
-		}
-		return options.inverse(this);
-	});
-
 	// Sets the view engine to handlebars
 	app.set('view engine', 'hbs');
 	// Handles access to the public folder
