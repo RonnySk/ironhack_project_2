@@ -131,17 +131,6 @@ router.post('/flat/:flatId/delete', async (req, res, next) => {
 });
 
 
-// edit name of flat route
-
-router.get('/flat/:id/edit', async (req, res, next) => {
-	try {
-		const flatToEdit = await Flat.findById(req.params.id);
-		res.render('flat/edit-flatname', { flatToEdit });
-	} catch (err) {
-		next(err);
-	}
-});
-
 // update name of flat route
 
 router.post('/flat/:id/update', async (req, res, next) => {
