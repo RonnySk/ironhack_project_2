@@ -64,7 +64,19 @@ router.post('/login', async (req, res, next) => {
 	}
 });
 
+
+
 // flat route
+
+router.get('/flat', isLoggedIn, async (req, res, next) => {
+	try {
+		res.render('flat/flat');
+	} catch (err) {
+		next(err);
+	}
+
+
+});
 
 router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
 	try {
@@ -74,19 +86,6 @@ router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
 		const tasks = await Task.find({ flatId: req.params.id }).populate('user');
 
 		res.render('flat/flat-details', { allUsers, flat, tasks });
-	} catch (err) {
-		next(err);
-	}
-});
-
-router.post('/flat', async (req, res, next) => {
-	try {
-		const newFlat = await Flat.create({
-			name: req.body.flatName,
-			users: req.body.flatMembers,
-			owner: req.session.user.id,
-		});
-		res.redirect('flat/' + newFlat.id);
 	} catch (err) {
 		next(err);
 	}
@@ -103,13 +102,41 @@ router.get('/create-flat', async (req, res, next) => {
 	}
 });
 
+router.post('/create-flat', async (req, res, next) => {
+	try {
+		const newFlat = await Flat.create({
+			name: req.body.flatName,
+			users: req.body.flatMembers,
+			owner: req.session.user.id,
+		});
+		res.redirect('flat/' + newFlat.id);
+	} catch (err) {
+		next(err);
+	}
+});
+
+
+
+
+// delete Flat route 
+
+router.post('/flat/:flatId/delete', async (req, res, next) => {
+	try {
+		const { flatId } = req.params;
+		const flat = await Flat.findOneAndDelete(flatId);
+		res.redirect('/flat');
+	} catch (err) {
+		next(err);
+	}
+});
+
+
 // edit name of flat route
 
 router.get('/flat/:id/edit', async (req, res, next) => {
 	try {
 		const flatToEdit = await Flat.findById(req.params.id);
 		res.render('flat/edit-flatname', { flatToEdit });
-		console.log('flat to edit is:', flatToEdit);
 	} catch (err) {
 		next(err);
 	}
@@ -134,7 +161,7 @@ router.post('/flat/:flatId/user/:userId/delete', async (req, res, next) => {
 	try {
 		const { flatId, userId } = req.params;
 		const flat = await Flat.findByIdAndUpdate(flatId, { $pull: { users: userId } }, { new: true });
-		res.redirect('/flat/' + flat.id);
+		res.redirect('/flat');
 	} catch (err) {
 		next(err);
 	}

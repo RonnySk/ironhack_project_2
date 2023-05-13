@@ -267,9 +267,9 @@ input[type="submit"]:active {
 
 /*----- BUTTONS EDIT MODE -----*/
 
-.btn-edit {
+/* .btn-edit {
   display: none;
-}
+} */
 
 .edit-mode .btn-edit {
   display: block;

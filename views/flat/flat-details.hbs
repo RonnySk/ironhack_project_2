@@ -11,8 +11,14 @@
     <h2>Your flat:</h2>
     {{flat.name}}
     {{#if flat}}
-        <p>{{name}}</p>
-        <a href="/flat/{{flat._id}}/edit" class="btn btn-edit">edit flatname</a>
+        <form action="/flat/{{flat._id}}/update" method="post">
+        <input type="text" name="name" value="{{flat.name}}">
+        <button>Update flatname</button>
+    </form>
+        {{!-- <a href="/flat/{{flat._id}}/edit" class="btn btn-edit">edit flatname</a> --}}
+        <form class="delete-flat" action="/flat/{{flat._id}}/delete" method="post">
+                        <button type="submit" class="btn btn-edit btn-delete-flat">delete flat</button>
+                    </form>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
