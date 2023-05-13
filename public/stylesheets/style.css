@@ -38,6 +38,16 @@ h1 .name {
   text-transform: capitalize;
 }
 
+span.is-admin {
+  background-color: orange;
+  color: white;
+  font-size: 1rem;
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 15px;
+  vertical-align: super;
+}
+
 h2 {
   font-size: var(--font-size-base);
   margin-bottom: 0.75rem;

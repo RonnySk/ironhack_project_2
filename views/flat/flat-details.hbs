@@ -1,6 +1,5 @@
 <section>
-    {{!-- <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1> --}}
-        <h1>Welcome, <span class="name">{{userFromSession.name}}</span></h1>
+        <h1>Welcome, <span class="name">{{userFromSession.name}}</span> {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}</h1>
    {{!-- {{#if announcement}}
         <div class="announcement">
             {{announcement}}
@@ -9,16 +8,16 @@
 </section>
 <section>
     <h2 class="edit-mode-hidden">Your flat:</h2>
-    <p class="edit-mode-hidden">{{flat.name}}</p>
     {{#if flat}}
+    <p class="edit-mode-hidden">{{flat.name}}</p>
         <form class="edit-mode-show" action="/flat/{{flat._id}}/update" method="post">
-        <h2>New flatname:</h2>
-        <input type="text" name="name" value="{{flat.name}}">
-        <button>Update flatname</button>
-    </form>
+            <h2>New flatname:</h2>
+            <input type="text" name="name" value="{{flat.name}}">
+            <button>Update flatname</button>
+        </form>
         <form class="edit-mode-show delete-flat" action="/flat/{{flat._id}}/delete" method="post">
-                        <button type="submit" class="btn btn-edit btn-delete-flat">delete flat</button>
-                    </form>
+            <button type="submit" class="btn btn-edit btn-delete-flat">delete flat</button>
+        </form>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
@@ -61,12 +60,34 @@
                         <strong>{{this.name}}</strong><br>
                         <small>{{this.description}}</small>
                     </p>
+                    <form class="edit-mode-show delete-task" action="/flat/{{../flat._id}}/task/{{_id}}/delete" method="post">
+                        <button type="submit" class="btn btn-edit">delete task</button>
+                    </form>
                     <div class="status">
-                        {{#if this.isdone}}
-                            <button class="btn btn-update-task">✅</button>
+                        user from session: {{../userFromSession.id}}<br>
+                        user: {{user._id}}
+
+                        {{!-- {{#ifEquals ../userFromSession.id user._id}}
+                            same!
+                        {{/if}} --}}
+
+                        {{!-- {{#if ../userFromSession.id === user._id}}
+                            button
+                            <form action="/flat/{{../flat._id}}/task/{{_id}}/update" method="post">
+                                {{#if this.isDone}}
+                                    <button class="btn btn-update-task">✅</button>
+                                {{else}}
+                                    <button class="btn btn-update-task">🔲</button>
+                                {{/if}}
+                            </form>
                         {{else}}
-                            <button class="btn btn-update-task">🔲</button>
-                        {{/if}}
+                            no button
+                            {{#if this.isDone}}
+                                <div class="task-status">✅</div>
+                            {{else}}
+                                <div class="task-status">🔲</div>
+                            {{/if}}
+                        {{/if}} --}}
                     </div>
                 </li>
             {{/each}} 

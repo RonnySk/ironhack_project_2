@@ -2,7 +2,9 @@
     {{#if userFromSession}}
     <a class="logo" href="/flat">🥨</a>    
     <div class="btn-group">
+        {{#if userIsAdmin}}
         <button class="toggle-edit-mode">Edit</button>
+        {{/if}}
         <form action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
