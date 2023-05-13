@@ -6,7 +6,7 @@ const isPartOfFlat = async (req, res, next) => {
         next();
         return;
     } else {
-         res.redirect('/create-flat');
+         res.redirect('/flat');
     }
 
 };

@@ -6,5 +6,5 @@ document.addEventListener('DOMContentLoaded', () => {
 // edit mode
 const btnToggleEditMode = document.querySelector('.toggle-edit-mode');
 btnToggleEditMode.onclick = () => {
-	document.body.classList.toggle('edit-mode');
+	document.body.classList.toggle('edit-mode-on');
 };

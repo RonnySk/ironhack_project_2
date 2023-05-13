@@ -201,6 +201,10 @@ figure.user figcaption {
 
 /*----- FORM ELEMENTS -----*/
 
+form + form {
+  margin-top: var(--base-spacing);
+}
+
 input,
 select,
 textarea {
@@ -267,11 +271,12 @@ input[type="submit"]:active {
 
 /*----- BUTTONS EDIT MODE -----*/
 
-/* .btn-edit {
+.edit-mode-show,
+.edit-mode-on .edit-mode-hidden {
   display: none;
-} */
+}
 
-.edit-mode .btn-edit {
+.edit-mode-on .edit-mode-show {
   display: block;
 }
 
@@ -288,7 +293,7 @@ input[type="submit"]:active {
   width: 80px;
 }
 
-.edit-mode .list-flatmates li:hover button:before {
+.edit-mode-on .list-flatmates li:hover button:before {
   transform: scale(1.4);
   background-color: red;
   transition: transform 0.2s ease, color 0.2s ease;

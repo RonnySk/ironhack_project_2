@@ -8,15 +8,15 @@
     {{/if}} --}}
 </section>
 <section>
-    <h2>Your flat:</h2>
-    {{flat.name}}
+    <h2 class="edit-mode-hidden">Your flat:</h2>
+    <p class="edit-mode-hidden">{{flat.name}}</p>
     {{#if flat}}
-        <form action="/flat/{{flat._id}}/update" method="post">
+        <form class="edit-mode-show" action="/flat/{{flat._id}}/update" method="post">
+        <h2>New flatname:</h2>
         <input type="text" name="name" value="{{flat.name}}">
         <button>Update flatname</button>
     </form>
-        {{!-- <a href="/flat/{{flat._id}}/edit" class="btn btn-edit">edit flatname</a> --}}
-        <form class="delete-flat" action="/flat/{{flat._id}}/delete" method="post">
+        <form class="edit-mode-show delete-flat" action="/flat/{{flat._id}}/delete" method="post">
                         <button type="submit" class="btn btn-edit btn-delete-flat">delete flat</button>
                     </form>
     {{else}}
@@ -35,12 +35,12 @@
                         {{/if}}
                         <figcaption class="name">{{username}}</figcaption>
                     </figure>
-                    <form class="delete-flatmate" action="/flat/{{../flat._id}}/user/{{_id}}/delete" method="post">
+                    <form class="edit-mode-show delete-flatmate" action="/flat/{{../flat._id}}/user/{{_id}}/delete" method="post">
                         <button type="submit" class="btn btn-edit btn-delete-flatmate">delete flatmate</button>
                     </form>
                 </li>
             {{/each}}
-            <li><a href="/flat/{{flat._id}}/add-flatmate" class="btn btn-add-flatmate">add flatmate</a></li>
+            <li class="edit-mode-show"><a href="/flat/{{flat._id}}/add-flatmate" class="btn btn-add-flatmate">add flatmate</a></li>
         </ul>
 </section>
 <section>
