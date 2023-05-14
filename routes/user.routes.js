@@ -133,7 +133,7 @@ router.post("/create-flat", async (req, res, next) => {
 router.post("/flat/:flatId/delete", async (req, res, next) => {
   try {
     const { flatId } = req.params;
-    const flat = await Flat.findOneAndDelete(flatId);
+    const flatToDelete = await Flat.findByIdAndDelete({ _id: flatId });
     res.redirect("/flat");
   } catch (err) {
     next(err);
@@ -271,7 +271,5 @@ router.post("/flat/:flatId/task/:taskId/update", async (req, res, next) => {
     next(err);
   }
 });
-
-// delete User route
 
 module.exports = router;
