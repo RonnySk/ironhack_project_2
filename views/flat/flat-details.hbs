@@ -59,28 +59,25 @@
                     <p class="task">
                         <strong>{{this.name}}</strong><br>
                         <small>{{this.description}}</small>
-                       {{isOwner}} 
-                    </p>
+                     </p>
                     <form class="edit-mode-show delete-task" action="/flat/{{../flat._id}}/task/{{_id}}/delete" method="post">
                         <button type="submit" class="btn btn-edit">delete task</button>
                     </form>
                     <div class="status">
                         {{#if isOwner}}
-                            isowner!
-                            {{!-- <form action="/flat/{{../flat._id}}/task/{{_id}}/update" method="post">
+                                <form action="/flat/{{../flat._id}}/task/{{_id}}/update" method="post">
                                 {{#if this.isDone}}
                                     <button class="btn btn-update-task">✅</button>
                                 {{else}}
                                     <button class="btn btn-update-task">🔲</button>
                                 {{/if}}
-                            </form> --}}
+                            </form>
                         {{else}}
-                            isnot
-                            {{!-- {{#if this.isDone}}
+                            {{#if this.isDone}}
                                 <div class="task-status">✅</div>
                             {{else}}
                                 <div class="task-status">🔲</div>
-                            {{/if}} --}}
+                            {{/if}}
                         {{/if}}
                     </div>
                 </li>
