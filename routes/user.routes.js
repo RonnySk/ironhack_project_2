@@ -214,18 +214,16 @@ router.post("/logout", (req, res, next) => {
 // add task route
 
 router.post("/flat/:id", async (req, res, next) => {
-  const flat = await Flat.findOne({ users: req.session.user.id }).populate(
-    "users"
-  );
-  console.log("add task", flat);
+  const flatId = req.params.id;
+
   const newTask = await Task.create({
     name: req.body.taskname,
     description: req.body.taskdescription,
     user: req.body.taskuser,
-    flatId: flat.id,
+    flatId: flatId,
   });
 
-  res.redirect("/flat/" + flat.id);
+  res.redirect("/flat/" + flatId);
   try {
   } catch (err) {
     next(err);
