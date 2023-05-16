@@ -13,13 +13,14 @@ create flat
 
 extra
 - catch errors (i.e. when creating nameless flat)
-- user settings: update picture
 - reset isdone status of tasks on Sunday midnight
 - order task list by user (if users have multiple tasks)
 
+- bugfix: update profile not possible with empty profile pic (wiebke)
 - random cleaning tipp (wiebke)
 
-- delete user (and what happens to their flats?)
+- delete user (+ what happens to their flats?)
+- ~~user settings: update picture~~
 - ~~user settings: update name + email~~
 - ~~separate routes files~~
 - ~~announcement with random cleaning tip /sad animal on Saturday if tasks are not done~~
