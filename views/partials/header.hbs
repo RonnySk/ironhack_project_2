@@ -3,8 +3,9 @@
     <a class="logo" href="/flat">🥨</a>    
     <div class="btn-group">
         {{#if userIsAdmin}}
-        <button class="toggle-edit-mode">Edit</button>
+        <button class="toggle-edit-mode">Edit flat</button>
         {{/if}}
+        <a href="/user/{{userFromSession.id}}" class="btn">User Settings</a>
         <form action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>

@@ -72,6 +72,12 @@ p {
   margin-top: 0;
 }
 
+.announcement {
+  background-color: var(--color-secondary);
+  border: 2px solid var(--color-primary);
+  padding: var(--base-spacing);
+}
+
 a {
   color: var(--color-links);
 }

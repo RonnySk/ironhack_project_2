@@ -1,10 +1,15 @@
 <section>
         <h1>Welcome, <span class="name">{{userFromSession.name}}</span> {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}</h1>
-   {{!-- {{#if announcement}}
         <div class="announcement">
-            {{announcement}}
+            {{#if hasOverdueTasks}}
+                <p>
+                    {{userFromSession.name}}!!! It’s Saturday and you haven’t completed your tasks yet! How dare you! If you don’t do it soon, this baby animal is going to be very sad:
+                </p>
+                <img src="/images/sad-kitten.jpg" width="200" />
+            {{else}}
+                random cleaning tipp
+            {{/if}}
         </div>
-    {{/if}} --}}
 </section>
 <section>
     <h2 class="edit-mode-hidden">Your flat:</h2>

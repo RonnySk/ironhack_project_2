@@ -92,6 +92,17 @@ router.get("/flat/:id", isLoggedIn, isPartOfFlat, async (req, res, next) => {
       }
       return task;
     });
+    
+    let hasOverdueTasks = false;
+    const d = new Date();
+    let day = d.getDay();
+    if (day === 6 || day === 0) {
+      for (let i=0; i < updatedTasks.length; i++) {
+        if (updatedTasks[i].isOwner == true && updatedTasks[i].isDone == false) {
+          hasOverdueTasks = true;
+        }
+      }
+    }
 
     if (flat.owner == req.session.user.id) {
       res.render("flat/flat-details", {
@@ -99,6 +110,7 @@ router.get("/flat/:id", isLoggedIn, isPartOfFlat, async (req, res, next) => {
         flat,
         tasks,
         updatedTasks,
+        hasOverdueTasks,
         userIsAdmin: true,
       });
     } else {
@@ -107,6 +119,7 @@ router.get("/flat/:id", isLoggedIn, isPartOfFlat, async (req, res, next) => {
         flat,
         tasks,
         updatedTasks,
+        hasOverdueTasks,
         userIsAdmin: false,
       });
     }
@@ -119,12 +132,16 @@ router.get("/flat/:id", isLoggedIn, isPartOfFlat, async (req, res, next) => {
 // create-flat route
 
 router.post("/create-flat", async (req, res, next) => {
+
+const allUsers = await User.find({ _id: { $nin: flat.users } });
+
   try {
     const newFlat = await Flat.create({
       name: req.body.flatName,
-      users: (req.body.flatMembers, req.session.user.id),
+      users: req.body.flatMembers,
       owner: req.session.user.id,
     });
+    console.log("YOUR NEW FLAT:", newFlat)
     res.redirect("flat/" + newFlat.id);
   } catch (err) {
     next(err);
@@ -201,6 +218,20 @@ router.post("/flat/:flatId/add-flatmate", async (req, res, next) => {
     next(err);
   }
 });
+
+// user settings route
+
+router.get("/user/:userId", async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const currentUser = await User.find({ _id: userId });
+    console.log(currentUser);
+    res.render("user/user-settings", { currentUser });
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 // logout route
 
