@@ -38,12 +38,26 @@ h1 .name {
   text-transform: capitalize;
 }
 
+h1.profile-header {
+  display: flex;
+  align-items: center;
+}
+
+h1.profile-header img {
+  border: 2px solid var(--color-secondary);
+  border-radius: 50%;
+  margin-right: var(--base-spacing);
+  flex: 0 0 100px;
+  object-fit: cover;
+}
+
 span.is-admin {
   background-color: orange;
   color: white;
   font-size: 1rem;
   display: inline-block;
   padding: 5px 12px;
+  margin-left: 1rem;
   border-radius: 15px;
   vertical-align: super;
 }
@@ -76,6 +90,11 @@ p {
   background-color: var(--color-secondary);
   border: 2px solid var(--color-primary);
   padding: var(--base-spacing);
+  font-size: 1.3rem;
+}
+
+.announcement > *:last-child {
+  margin-bottom: 0;
 }
 
 a {
@@ -159,10 +178,17 @@ figure {
 
 /* user image */
 
+figure.user {
+  text-align: center;
+}
+
 figure.user img {
   background-color: var(--color-primary);
+  border: 2px solid var(--color-secondary);
+  object-fit: cover;
   border-radius: 50%;
   display: block;
+  margin: 0 auto;
   height: 80px;
   width: 80px;
 }
@@ -196,6 +222,10 @@ figure.user figcaption {
 
 /* list tasks */
 
+.list-tasks {
+  padding-left: 0;
+}
+
 .list-tasks li {
   display: flex;
   gap: var(--base-spacing);
@@ -217,6 +247,7 @@ figure.user figcaption {
 
 /*----- FORM ELEMENTS -----*/
 
+form,
 form + form {
   margin-top: var(--base-spacing);
 }

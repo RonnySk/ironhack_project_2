@@ -1,16 +1,23 @@
-<h1>Hello {{currentUser.username}}</h1>
-<form action="/user/{{currentUser._id}}/update" method="post" enctype="multipart/form-data">
-  <label for="username">Your name</label>
-  <input type="text" name="username" id="username" value="{{currentUser.username}}" />
-  <label for="email">Your email</label>
-  <input type="email" name="email" value="{{currentUser.email}}" />
-  <div class="">
-    <label for="email">An awesome photo of you:</label>
-    <img src="{{currentUser.ImgUrl}}" width="200" alt="" />
-    <input type="file" name="imageUrl" accept="image/png, image/jpg" />
-  </div>
-  <input type="submit" value="Update User" />
-</form>
-{{#if error}}
-  {{error}}
-{{/if}}
+<section>
+    <h1 class="profile-header">
+        {{#if userFromSession.ImgUrl}}<img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" />{{/if}}
+        Hello {{currentUser.username}}
+    </h1>
+</section>
+<section>
+    <h2>Update your Profile</h2>
+    <form action="/user/{{currentUser._id}}/update" method="post" enctype="multipart/form-data">
+    <label for="username">Your name</label>
+    <input type="text" name="userName" id="username" value="{{currentUser.username}}" />
+    <label for="email">Your email</label>
+    <input type="email" name="emailAddress" value="{{currentUser.email}}" />
+    <div class="">
+        <label for="">Update your profile picture:</label>
+        <input type="file" name="imageUrl" accept="image/png, image/jpg" />
+    </div>
+    <input type="submit" value="Update User" />
+    </form>
+    {{#if error}}
+    {{error}}
+    {{/if}}
+</section>

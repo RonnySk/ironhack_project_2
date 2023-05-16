@@ -1,18 +1,31 @@
 <section>
-        <h1>Welcome, <span class="name">{{userFromSession.name}}</span> {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}</h1>
-        <div class="announcement">
-            {{#if hasOverdueTasks}}
-                <p>
-                    {{userFromSession.name}}!!! It’s Saturday and you haven’t completed your tasks yet! How dare you! If you don’t do it soon, this baby animal is going to be very sad:
-                </p>
-                <img src="/images/sad-kitten.jpg" width="200" />
-            {{else}}
-                random cleaning tipp
-            {{/if}}
-        </div>
+    <h1 class="profile-header">
+        {{#if userFromSession.ImgUrl}}<a href="/flat"><img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" /></a>{{/if}}
+        Welcome, <span class="name">{{userFromSession.name}}</span> {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}
+    </h1>
+    <div class="announcement">
+        {{#if hasOverdueTasks}}
+            <p>
+                <span style="text-transform: uppercase">{{userFromSession.name}}</span>! ☝️ It’s Saturday and you haven’t completed your tasks yet. That’s really bad (we’re not angry, we’re just disappointed). Do it soon or this baby animal is going to be very sad:
+            </p>
+            <img src="/images/sad-kitten.jpg" width="200" />
+        {{else}}
+            <p>
+                Hey {{userFromSession.name}},
+            </p>
+            <p>
+                great job this week – you’re not behind on any tasks (yet).<br>
+                So how about some fun reading instead?
+            </p>
+            <p>
+                Did you know about these <a href="https://www.mollymaid.com/practically-spotless/2016/march/ultimate-q-tips-cleaning-tips/">5 great cleaning tipps involving Q-tips?</a>
+                So fascinating, right? Let that flat sparkle! ✨
+            </p>
+        {{/if}}
+    </div>
 </section>
 <section>
-    <h2 class="edit-mode-hidden">Your flat:</h2>
+    <h2 class="edit-mode-hidden">Your current flat:</h2>
     {{#if flat}}
     <p class="edit-mode-hidden">{{flat.name}}</p>
         <form class="edit-mode-show" action="/flat/{{flat._id}}/update" method="post">
@@ -23,6 +36,7 @@
         <form class="edit-mode-show delete-flat" action="/flat/{{flat._id}}/delete" method="post">
             <button type="submit" class="btn btn-edit btn-delete-flat">delete flat</button>
         </form>
+        <a href="/flat">👉 see all your flats</a>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}

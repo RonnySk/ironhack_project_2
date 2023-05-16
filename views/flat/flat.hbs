@@ -1,5 +1,8 @@
 <section>
-  <h1>Welcome, {{userFromSession.name}}</h1>
+  <h1 class="profile-header">
+    {{#if userFromSession.ImgUrl}}<img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" />{{/if}}
+    Welcome, {{userFromSession.name}}
+  </h1>
 </section>
 
 <section>
