@@ -1,11 +1,5 @@
 <section>
-  {{!-- <h1>Welcome <span class="{{#if isAdmin}}is-admin{{/if}}">{{user}}</span></h1> --}}
-  <h1>Welcome, <span class="name">{{userFromSession.name}}</span></h1>
-  {{!-- {{#if announcement}}
-        <div class="announcement">
-            {{announcement}}
-        </div>
-    {{/if}} --}}
+  <h1>Welcome, {{userFromSession.name}}</h1>
 </section>
 
 <section>
@@ -17,7 +11,7 @@
       {{/each}}
     </ul>
   {{else}}
-    <p>You´re currently not in any Flats</p>
+    <p>You are currently not in any flats</p>
   {{/if}}
 
 </section>

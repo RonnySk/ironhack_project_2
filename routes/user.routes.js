@@ -66,21 +66,25 @@ router.post("/login", async (req, res, next) => {
 
 // flat route
 
+const mongoose = require("mongoose");
 router.get("/flat", isLoggedIn, async (req, res, next) => {
   try {
     const allFlats = await Flat.find({ users: req.session.user.id });
-    const allUsers = await User.find();
+    //const allUsers = await User.find();
+    const allUsers = await User.find({ _id: { $ne: new mongoose.Types.ObjectId(req.session.user.id) } });
     res.render("flat/flat", { allFlats, allUsers });
   } catch (err) {
     next(err);
   }
 });
 
+//const mongoose = require("mongoose");
 router.get("/flat/:id", isLoggedIn, isPartOfFlat, async (req, res, next) => {
   try {
     const { id } = req.params.id;
     const flat = await Flat.findById({ _id: req.params.id }).populate("users");
     const allUsers = await User.find();
+    //const allUsers = await User.find({ _id: { $ne: new mongoose.Types.ObjectId(req.session.user.id) } });
     const tasks = await Task.find({ flatId: req.params.id })
       .populate("user")
       .lean();
@@ -138,7 +142,7 @@ const allUsers = await User.find({ _id: { $nin: flat.users } });
   try {
     const newFlat = await Flat.create({
       name: req.body.flatName,
-      users: req.body.flatMembers,
+      users: [...req.body.flatMembers, req.session.user.id],
       owner: req.session.user.id,
     });
     console.log("YOUR NEW FLAT:", newFlat)
@@ -224,9 +228,28 @@ router.post("/flat/:flatId/add-flatmate", async (req, res, next) => {
 router.get("/user/:userId", async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const currentUser = await User.find({ _id: userId });
-    console.log(currentUser);
+    const currentUser = await User.findById(userId);
+    console.log(userId);
     res.render("user/user-settings", { currentUser });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/user/:userId/update", async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { name } = req.body;
+    const updatedFlat = await User.findByIdAndUpdate(
+      userId,
+      {
+        username: req.body.username,
+        email: req.body.email,
+        ImgUrl: req.file.path
+      },
+      { new: true }
+    );
+    res.redirect("/flat/");
   } catch (err) {
     next(err);
   }
