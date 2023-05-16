@@ -49,8 +49,8 @@
             {{#each updatedTasks}}
                 <li>
                     <figure class="user">
-                        {{#if ImgUrl}}
-                            <img src="{{ImgUrl}}" alt="{{username}}" />
+                        {{#if user.ImgUrl}}
+                            <img src="{{user.ImgUrl}}" alt="{{username}}" />
                         {{else}}
                             <img src="/images/sad-mini-pig.jpg" alt="{{username}}" />
                         {{/if}}
