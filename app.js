@@ -30,8 +30,8 @@ app.use('/', indexRoutes);
 
 // User route
 app.use('/', require('./routes/user.routes'));
-// app.use('/', require('./routes/flat.routes'));
-// app.use('/', require('./routes/task.routes'));
+app.use('/', require('./routes/flat.routes'));
+app.use('/', require('./routes/task.routes'));
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);
