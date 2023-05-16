@@ -27,8 +27,8 @@
            {{#each flat.users}}
                 <li>
                     <figure class="user">
-                        {{#if image}}
-                            <img src="{{image}}" alt="{{username}}" />
+                        {{#if ImgUrl}}
+                            <img src="{{ImgUrl}}" alt="{{username}}" />
                         {{else}}
                             <img src="/images/sad-puppy.jpg" alt="{{username}}" />
                         {{/if}}
@@ -49,8 +49,8 @@
             {{#each updatedTasks}}
                 <li>
                     <figure class="user">
-                        {{#if image}}
-                            <img src="{{image}}" alt="{{username}}" />
+                        {{#if ImgUrl}}
+                            <img src="{{ImgUrl}}" alt="{{username}}" />
                         {{else}}
                             <img src="/images/sad-mini-pig.jpg" alt="{{username}}" />
                         {{/if}}

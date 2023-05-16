@@ -6,6 +6,7 @@ const isPartOfFlat = require("../middlewares/isPartOfFlat");
 const User = require("../models/User.model");
 const Flat = require("../models/Flat.model");
 const Task = require("../models/Task.model");
+const uploader = require("../middlewares/cloudinary.config.js");
 
 // signup route
 
@@ -13,7 +14,7 @@ router.get("/signup", (req, res) => {
   res.render("auth/signup");
 });
 
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", uploader.single("imageUrl"), async (req, res, next) => {
   try {
     const salt = await bcryptjs.genSalt(12);
     const hash = await bcryptjs.hash(req.body.password, salt);
@@ -21,6 +22,7 @@ router.post("/signup", async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       password: hash,
+      ImgUrl: req.file.path,
     });
     await newUser.save();
     res.render("auth/login", newUser);
@@ -108,6 +110,7 @@ router.get("/flat/:id", isLoggedIn, isPartOfFlat, async (req, res, next) => {
         userIsAdmin: false,
       });
     }
+    console.log("UPDATED TASK", updatedTasks);
   } catch (err) {
     next(err);
   }
