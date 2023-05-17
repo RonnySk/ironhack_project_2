@@ -1,6 +1,6 @@
 <section>
     <h1 class="profile-header">
-        {{#if userFromSession.ImgUrl}}<img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" />{{/if}}
+        {{#if currentUser.ImgUrl}}<img src="{{currentUser.ImgUrl}}" alt="" width="120" height="120" />{{/if}}
         Hello {{currentUser.username}}
     </h1>
 </section>
@@ -15,9 +15,10 @@
         <label for="">Update your profile picture:</label>
         <input type="file" name="imageUrl" accept="image/png, image/jpg" />
     </div>
-    <input type="submit" value="Update User" />
+    <input type="submit" value="Update Profile" />
     </form>
     {{#if error}}
     {{error}}
     {{/if}}
+    <a href="/user/{{currentUser._id}}/delete" class="btn">delete your account</a>
 </section>
