@@ -15,7 +15,7 @@
         <p>Just one more thing:<br>Before you go, assign a new admin or delete your flat(s), so we can keep everything neat and tidy around here as well.</p>
     </div>
         {{#each currentUsersFlats}}
-            <form action="/flat/{{id}}/update/owner/{{../currentUser.id}}" method="post">
+            <form action="/flat/{{id}}/update/owner/{{../currentUser.id}}/settings" method="post">
                 <h2>{{name}}</h2>
                 <select name="flatMembers">
                     <option selected disabled>choose new admin</option>
@@ -25,7 +25,7 @@
                 </select>
                 <button type="submit">update admin</button>
             </form>
-            <form action="/flat/{{id}}/delete" method="post">
+            <form action="/flat/{{id}}/delete/{{../currentUser.id}}" method="post">
                 <button type="submit">delete flat</button>
             </form>
         {{/each}}
