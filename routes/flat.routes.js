@@ -13,7 +13,6 @@ const mongoose = require('mongoose');
 router.get('/flat', isLoggedIn, async (req, res, next) => {
 	try {
 		const allFlats = await Flat.find({ users: req.session.user.id });
-		//const allUsers = await User.find();
 		const allUsers = await User.find({
 			_id: { $ne: new mongoose.Types.ObjectId(req.session.user.id) },
 		});
@@ -79,36 +78,18 @@ router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
 
 router.post('/create-flat', async (req, res, next) => {
 	try {
-		console.log('----------------');
-
 		let usersArr;
-
 		if (Array.isArray(req.body.flatMembers)) {
-			console.log('REQ.BODY.FLATMEMBERS IS ARRAY:', req.body.flatMembers);
 			usersArr = req.body.flatMembers;
-			console.log('ASSIGN TO USERS ARRAY:', usersArr);
-			console.log('STILL AN ARRAY?', Array.isArray(usersArr));
-			console.log('WHAT TYPE?', typeof usersArr);
-			console.log('SESSION USER ID', req.session.user.id);
 		} else {
 			usersArr = [];
-			console.log('NOT AN ARRAY. REQ.BODY.FLATMEMBERS:', req.body.flatMembers);
 			usersArr.push(req.body.flatMembers);
-			console.log('PUSHED TO USERS ARRAY:', usersArr);
-			console.log('IS ARRAY NOW?', Array.isArray(usersArr));
-			console.log('WHAT TYPE?', typeof usersArr);
-			console.log('SESSION USER ID', req.session.user.id);
 		}
-
-		console.log('FLAT NAME', req.body.flatName);
-		console.log('USERS', usersArr);
-
 		const newFlat = await Flat.create({
 			name: req.body.flatName,
 			users: [req.session.user.id, ...usersArr],
 			owner: req.session.user.id,
 		});
-
 		res.redirect('flat/' + newFlat.id);
 	} catch (err) {
 		next(err);
