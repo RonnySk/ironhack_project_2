@@ -1,6 +1,6 @@
 <section>
     <h1 class="profile-header">
-        {{#if userFromSession.ImgUrl}}<a href="/flat"><img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" /></a>{{/if}}
+        {{#if currentUser.ImgUrl}}<a href="/flat"><img src="{{currentUser.ImgUrl}}" alt="" width="120" height="120" /></a>{{/if}}
         Hello {{currentUser.username}}
     </h1>
 </section>
@@ -11,10 +11,12 @@
     <p>Are you moving into your own place, marrying a super tidy person or finally found a way to let AI do all the work for you? Splendid!</p>
 
     {{#if currentUsersFlats}}
+    <div class="card">
         <p>Just one more thing:<br>Before you go, assign a new admin or delete your flat(s), so we can keep everything neat and tidy around here as well. Hope to see you again sometime and don’t let those dust bunnies get ya!</p>
+    </div>
         {{#each currentUsersFlats}}
-            <form action="/flat/{{id}}/update/owner" method="post">
-                <label for="flatId">{{name}}</label>
+            <form action="/flat/{{id}}/update/owner/{{../currentUser.id}}" method="post">
+                <h2>{{name}}</h2>
                 <select name="flatMembers">
                     <option selected disabled>choose new admin</option>
                     {{#each users}}
@@ -28,10 +30,10 @@
             </form>
         {{/each}}
     {{else}}
-    <p>Let’s delete your account then, so we can keep everything tidy around here as well.</p>
-    <form action="/user/{{currentUser._id}}/delete" method="post">
-        <input type="submit" value="Delete Account" />
-    </form>
+        <p>Let’s delete your account then, so we can keep everything tidy around here as well. Hope to see you again and don’t let those dust bunnies get ya!</p>
+        <form action="/user/{{currentUser._id}}/delete" method="post">
+            <input type="submit" value="Delete Account" />
+        </form>
     {{/if}}
     {{#if error}}
     {{error}}

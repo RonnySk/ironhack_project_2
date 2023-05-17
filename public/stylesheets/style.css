@@ -10,7 +10,7 @@
   --color-border-input: #979797;
   --base-spacing: 1rem;
   --font-size-base: 1.5rem;
-  --header-height: 95px;
+  --header-height: 88px;
   --footer-height: 77px;
 }
 
@@ -82,14 +82,14 @@ p {
   margin-top: 0;
 }
 
-.announcement {
+.card {
   background-color: var(--color-secondary);
   border: 2px solid var(--color-primary);
   padding: var(--base-spacing);
   font-size: 1.3rem;
 }
 
-.announcement > *:last-child {
+.card > *:last-child {
   margin-bottom: 0;
 }
 
@@ -98,6 +98,7 @@ a {
 }
 
 a.logo {
+  height: 55px;
   text-decoration: none;
   font-size: 3rem;
 }
@@ -286,9 +287,9 @@ input[type="submit"] {
   width: 100%;
 }
 
-.btn:not(:last-child),
-button:not(:last-child),
-input[type="submit"]:not(:last-child) {
+main .btn:not(:last-child),
+main button:not(:last-child),
+main input[type="submit"]:not(:last-child) {
   margin-bottom: var(--base-spacing);
 }
 
@@ -301,6 +302,14 @@ header .btn,
 header button,
 header input[type="submit"] {
   background-color: #fff;
+}
+
+header form,
+header .btn,
+header button,
+header input[type="submit"] {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .btn:hover,
