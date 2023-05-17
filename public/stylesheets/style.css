@@ -34,10 +34,6 @@ h1 {
   font-size: 2rem;
 }
 
-h1 .name {
-  text-transform: capitalize;
-}
-
 h1.profile-header {
   display: flex;
   align-items: center;
@@ -250,6 +246,10 @@ figure.user figcaption {
 form,
 form + form {
   margin-top: var(--base-spacing);
+}
+
+label {
+  font-weight: bold;
 }
 
 input,
