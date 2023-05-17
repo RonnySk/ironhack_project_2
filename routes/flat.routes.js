@@ -123,12 +123,13 @@ router.post('/flat/:id/update', async (req, res, next) => {
 
 // update flat owner route
 
-router.post('/flat/:id/update/owner', async (req, res, next) => {
+router.post('/flat/:id/update/owner/:userId', async (req, res, next) => {
 	try {
 		const flatId = req.params.id;
+		const userId = req.params.userId;
 		const newOwnerId = req.body.flatMembers;
 		const updatedFlat = await Flat.findByIdAndUpdate(flatId, { owner: newOwnerId }, { new: true });
-		res.redirect('/user/' + req.session.user.id + '/delete');
+		res.redirect('/user/' + userId + '/delete');
 	} catch (err) {
 		next(err);
 	}
