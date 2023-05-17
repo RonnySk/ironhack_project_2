@@ -1,7 +1,7 @@
 <section>
     <h1 class="profile-header">
         {{#if userFromSession.ImgUrl}}<a href="/flat"><img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" /></a>{{/if}}
-        Welcome, <span class="name">{{userFromSession.name}}</span> {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}
+        Welcome, {{userFromSession.name}} {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}
     </h1>
     <div class="announcement">
         {{#if hasOverdueTasks}}
@@ -18,8 +18,8 @@
                 So how about some fun reading instead?
             </p>
             <p>
-                Did you know about these <a href="https://www.mollymaid.com/practically-spotless/2016/march/ultimate-q-tips-cleaning-tips/">5 great cleaning tipps involving Q-tips?</a>
-                So fascinating, right? Let that flat sparkle! ✨
+                Did you know about these <a href="https://www.mollymaid.com/practically-spotless/2016/march/ultimate-q-tips-cleaning-tips/">5 great cleaning tipps involving Q-tips?</a><br>
+                Fascinating, right? Let that flat sparkle! ✨
             </p>
         {{/if}}
     </div>
