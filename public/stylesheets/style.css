@@ -34,6 +34,17 @@ h1 {
   font-size: 2rem;
 }
 
+.intro h1 {
+  font-size: 3rem; 
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.intro h1 + h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
 h1.profile-header {
   display: flex;
   align-items: center;
@@ -167,6 +178,8 @@ section.intro,
 section.error {
   text-align: center;
 }
+
+
 
 figure {
   margin: 0;
