@@ -1,6 +1,7 @@
 const bcryptjs = require('bcryptjs');
 const router = require('express').Router();
 const User = require('../models/User.model');
+const Flat = require('../models/Flat.model');
 const uploader = require('../middlewares/cloudinary.config.js');
 
 // signup route
@@ -101,27 +102,25 @@ router.post('/user/:userId/update', uploader.single('imageUrl'), async (req, res
 	}
 });
 
-// router.post('/flat/:id/update', async (req, res, next) => {
-// 	try {
-// 		const flatId = req.params.id;
-// 		const { name } = req.body;
-// 		const updatedFlat = await Flat.findByIdAndUpdate(flatId, { name }, { new: true });
-// 		res.redirect('/flat/' + flatId);
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// });
-// router.post('/create-flat', async (req, res, next) => {
-// 	try {
-// 		const newFlat = await Flat.create({
-// 			name: req.body.flatName,
-// 			users: [...req.body.flatMembers, req.session.user.id],
-// 			owner: req.session.user.id,
-// 		});
-// 		res.redirect('flat/' + newFlat.id);
-// 	} catch (err) {
-// 		next(err);
-// 	}
+// delete user route
+
+router.get('/user/:userId/delete', async (req, res, next) => {
+	try {
+		const { userId } = req.params;
+		const currentUser = await User.findById(userId);
+
+		currentUsersFlats = await Flat.find({ owner: userId }).populate('users');
+
+		res.render('user/delete-user', { currentUser, currentUsersFlats });
+	} catch (err) {
+		next(err);
+	}
+});
+
+// router.post('/user/:userId/delete', async (req, res, next) => {
+// 	const { userId } = req.params;
+// 	const userToDelete = await User.findByIdAndDelete({ _id: userId });
+// 	res.redirect('/');
 // });
 
 // logout route
