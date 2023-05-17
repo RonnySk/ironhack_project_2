@@ -108,6 +108,16 @@ router.post('/flat/:flatId/delete', async (req, res, next) => {
 	}
 });
 
+router.post('/flat/:flatId/delete/:userId', async (req, res, next) => {
+	try {
+		const { flatId, userId } = req.params;
+		const flatToDelete = await Flat.findByIdAndDelete({ _id: flatId });
+		res.redirect('/user/' + userId + '/delete');
+	} catch (err) {
+		next(err);
+	}
+});
+
 // update flat name route
 
 router.post('/flat/:id/update', async (req, res, next) => {
@@ -129,6 +139,18 @@ router.post('/flat/:id/update/owner/:userId', async (req, res, next) => {
 		const userId = req.params.userId;
 		const newOwnerId = req.body.flatMembers;
 		const updatedFlat = await Flat.findByIdAndUpdate(flatId, { owner: newOwnerId }, { new: true });
+		res.redirect('/flat/' + flatId);
+	} catch (err) {
+		next(err);
+	}
+});
+
+router.post('/flat/:id/update/owner/:userId/settings', async (req, res, next) => {
+	try {
+		const flatId = req.params.id;
+		const userId = req.params.userId;
+		const newOwnerId = req.body.flatMembers;
+		const updatedFlat = await Flat.findByIdAndUpdate(flatId, { owner: newOwnerId }, { new: true });
 		res.redirect('/user/' + userId + '/delete');
 	} catch (err) {
 		next(err);
@@ -140,8 +162,15 @@ router.post('/flat/:id/update/owner/:userId', async (req, res, next) => {
 router.post('/flat/:flatId/user/:userId/delete', async (req, res, next) => {
 	try {
 		const { flatId, userId } = req.params;
-		const flat = await Flat.findByIdAndUpdate(flatId, { $pull: { users: userId } }, { new: true });
-		res.redirect('/flat/' + flatId);
+		const flatIsOwner = await Flat.find({ _id: flatId, owner: { $eq: new mongoose.Types.ObjectId(userId) } });
+
+		if (flatIsOwner.length === 0) {
+			const flat = await Flat.findByIdAndUpdate(flatId, { $pull: { users: userId } }, { new: true });
+			res.redirect('/flat/' + flatId);
+		} else {
+			console.log('TRYING TO DELETE FLAT OWNER', flatIsOwner);
+			res.redirect('/flat/' + flatId);
+		}
 	} catch (err) {
 		next(err);
 	}
