@@ -33,27 +33,31 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    return res.render("auth/login", { error: "User not existent!" });
-  }
-  const passwordsMatch = await bcryptjs.compare(
-    req.body.password,
-    user.password
-  );
-  if (!passwordsMatch) {
-    return res.render("auth/login", {
-      error: "Sorry the password is incorrect!",
-    });
-  }
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.render("auth/login", { error: "User not existent!" });
+    }
+    const passwordsMatch = await bcryptjs.compare(
+      req.body.password,
+      user.password
+    );
+    if (!passwordsMatch) {
+      return res.render("auth/login", {
+        error: "Sorry the password is incorrect!",
+      });
+    }
 
-  req.session.user = {
-    id: user._id,
-    name: user.username,
-    ImgUrl: user.ImgUrl,
-  };
+    req.session.user = {
+      id: user._id,
+      name: user.username,
+      ImgUrl: user.ImgUrl,
+    };
 
-  res.redirect("/flat");
+    res.redirect("/flat");
+  } catch (err) {
+    next(err);
+  }
 });
 
 // user settings route
