@@ -18,8 +18,8 @@ extra
 - bugfix: update profile not possible with empty profile pic (wiebke)
 - random cleaning tipp (wiebke)
 
-- delete user (+ what happens to their flats?)
-- can you remove yourself from your own flat?
+- ~~you can not remove yourself from your own flat?~~ (currently does nothing, we should add a message here)
+- ~~delete user (+ what happens to their flats?)~~
 - ~~order task list by user (if users have multiple tasks)~~
 - ~~user settings: update picture~~
 - ~~user settings: update name + email~~
