@@ -1,7 +1,5 @@
 const bcryptjs = require('bcryptjs');
 const router = require('express').Router();
-const isLoggedOut = require('../middlewares/isLoggedOut');
-const isLoggedIn = require('../middlewares/isLoggedIn');
 const User = require('../models/User.model');
 const Flat = require('../models/Flat.model');
 const uploader = require('../middlewares/cloudinary.config.js');
@@ -106,7 +104,7 @@ router.post('/user/:userId/update', uploader.single('imageUrl'), async (req, res
 
 // delete user route
 
-router.get('/user/:userId/delete', isLoggedIn, async (req, res, next) => {
+router.get('/user/:userId/delete', async (req, res, next) => {
 	try {
 		const { userId } = req.params;
 		const currentUser = await User.findById(userId);
@@ -119,38 +117,11 @@ router.get('/user/:userId/delete', isLoggedIn, async (req, res, next) => {
 	}
 });
 
-const mongoose = require('mongoose');
-router.post('/user/:userId/delete', async (req, res, next) => {
-	try {
-		const { userId } = req.params;
-		deleteUserFromFlats = await Flat.updateMany(
-			{},
-			{ $pull: { users: { $in: [new mongoose.Types.ObjectId(userId)] } } },
-			{ new: true }
-		);
-		const userToDelete = await User.findByIdAndDelete({ _id: userId });
-
-		req.session.destroy((err) => {
-			if (err) {
-				next(err);
-				return;
-			}
-			res.redirect('/goodbye');
-		});
-	} catch (err) {
-		next(err);
-	}
-});
-
-// delete user successful route
-
-router.get('/goodbye', async (req, res, next) => {
-	try {
-		res.render('user/delete-user-success');
-	} catch (err) {
-		next(err);
-	}
-});
+// router.post('/user/:userId/delete', async (req, res, next) => {
+// 	const { userId } = req.params;
+// 	const userToDelete = await User.findByIdAndDelete({ _id: userId });
+// 	res.redirect('/');
+// });
 
 // logout route
 
