@@ -1,18 +1,18 @@
 <section>
     <h1 class="profile-header">
         {{#if currentUser.ImgUrl}}<a href="/flat"><img src="{{currentUser.ImgUrl}}" alt="" width="120" height="120" /></a>{{/if}}
-        Hello {{currentUser.username}}
+        Delete your Account
     </h1>
 </section>
 <section>
-    <h2>Delete your Account</h2>
+    <h2>{{currentUser.username}}, we’re so sorry to see you go.</h2>
 
-    <p>{{currentUser.username}}, we’re so sorry to see you go. You’ve been one of our favourites and your bathroom cleaning skills are beyond anything we’ve ever seen before.</p>
-    <p>Are you moving into your own place, marrying a super tidy person or finally found a way to let AI do all the work for you? Splendid!</p>
+    <p>You’ve been one of our favourites and your bathroom cleaning skills are beyond anything we’ve ever seen before.</p>
+    <p>Are you moving into your own place, marrying a super tidy person or have you finally found a way to let AI do all the work for you? Splendid!</p>
 
     {{#if currentUsersFlats}}
     <div class="card">
-        <p>Just one more thing:<br>Before you go, assign a new admin or delete your flat(s), so we can keep everything neat and tidy around here as well. Hope to see you again sometime and don’t let those dust bunnies get ya!</p>
+        <p>Just one more thing:<br>Before you go, assign a new admin or delete your flat(s), so we can keep everything neat and tidy around here as well.</p>
     </div>
         {{#each currentUsersFlats}}
             <form action="/flat/{{id}}/update/owner/{{../currentUser.id}}" method="post">
@@ -30,7 +30,7 @@
             </form>
         {{/each}}
     {{else}}
-        <p>Let’s delete your account then, so we can keep everything tidy around here as well. Hope to see you again and don’t let those dust bunnies get ya!</p>
+        <p>Let’s delete your account then, so we can keep everything neat and tidy around here as well.</p>
         <form action="/user/{{currentUser._id}}/delete" method="post">
             <input type="submit" value="Delete Account" />
         </form>
