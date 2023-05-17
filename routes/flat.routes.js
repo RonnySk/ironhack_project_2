@@ -108,7 +108,7 @@ router.post('/flat/:flatId/delete', async (req, res, next) => {
 	}
 });
 
-// update name of flat route
+// update flat name route
 
 router.post('/flat/:id/update', async (req, res, next) => {
 	try {
@@ -116,6 +116,19 @@ router.post('/flat/:id/update', async (req, res, next) => {
 		const { name } = req.body;
 		const updatedFlat = await Flat.findByIdAndUpdate(flatId, { name }, { new: true });
 		res.redirect('/flat/' + flatId);
+	} catch (err) {
+		next(err);
+	}
+});
+
+// update flat owner route
+
+router.post('/flat/:id/update/owner', async (req, res, next) => {
+	try {
+		const flatId = req.params.id;
+		const newOwnerId = req.body.flatMembers;
+		const updatedFlat = await Flat.findByIdAndUpdate(flatId, { owner: newOwnerId }, { new: true });
+		res.redirect('/user/' + req.session.user.id + '/delete');
 	} catch (err) {
 		next(err);
 	}
