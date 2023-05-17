@@ -10,7 +10,7 @@ const Task = require("../models/Task.model");
 // all flats route
 
 const mongoose = require("mongoose");
-router.get("/flat", async (req, res, next) => {
+router.get("/flat", isLoggedIn, async (req, res, next) => {
   try {
     const allFlats = await Flat.find({ users: req.session.user.id });
     //const allUsers = await User.find();
@@ -27,7 +27,7 @@ router.get("/flat", async (req, res, next) => {
 
 router.get("/flat/:id", isLoggedIn, isPartOfFlat, async (req, res, next) => {
   try {
-    // const { id } = req.params.id;
+    const { id } = req.params.id;
     const flat = await Flat.findById({ _id: req.params.id }).populate("users");
     const allUsers = await User.find();
     const tasks = await Task.find({ flatId: req.params.id })
