@@ -29,7 +29,7 @@ router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
 		const { id } = req.params.id;
 		const flat = await Flat.findById({ _id: req.params.id }).populate('users');
 		const allUsers = await User.find();
-		const tasks = await Task.find({ flatId: req.params.id }).populate('user').lean();
+		const tasks = await Task.find({ flatId: req.params.id }).populate('user').lean().sort({ user: 1 });
 		const updatedTasks = tasks.map((task) => {
 			if (task.user._id.toString() === req.session.user.id) {
 				task.isOwner = true;
