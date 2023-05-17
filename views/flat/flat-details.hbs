@@ -1,6 +1,8 @@
 <section>
     <h1 class="profile-header">
-        {{#if userFromSession.ImgUrl}}<a href="/flat"><img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" /></a>{{/if}}
+        {{#if userFromSession.ImgUrl}}
+            <a href="/flat"><img src="{{userFromSession.ImgUrl}}" alt="" width="120" height="120" /></a>
+        {{/if}}
         Welcome, {{userFromSession.name}} {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}
     </h1>
     <div class="card">
@@ -27,7 +29,7 @@
 <section>
     <h2 class="edit-mode-hidden">Your current flat:</h2>
     {{#if flat}}
-    <p class="edit-mode-hidden">{{flat.name}}</p>
+        <p class="edit-mode-hidden">{{flat.name}}</p>
         <form class="edit-mode-show" action="/flat/{{flat._id}}/update" method="post">
             <h2>New flatname:</h2>
             <input type="text" name="name" value="{{flat.name}}">
@@ -36,11 +38,26 @@
         <form class="edit-mode-show delete-flat" action="/flat/{{flat._id}}/delete" method="post">
             <button type="submit" class="btn btn-edit btn-delete-flat">delete flat</button>
         </form>
-        <a href="/flat">👉 see all your flats</a>
+        <a class="edit-mode-hidden" href="/flat">👉 see all your flats</a>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
-   
+</section>
+{{#if flat}}
+<section class="edit-mode-show">
+    <h2>Assign new flat admin:</h2>
+    <form action="/flat/{{flat._id}}/update/owner/{{userFromSession.id}}" method="post">
+        <select name="flatMembers">
+            <option value="placeholder" disabled selected hidden>select person</option>
+            {{#each flat.users}}
+                <option value="{{id}}">{{username}}</option>
+            {{/each}}
+        </select>
+        <button type="submit" class="btn">update admin</button>
+    </form>
+</section>
+{{/if}}
+<section>
     <h2>Your flatmates:</h2>
         <ul class="list-flatmates unstyled">
            {{#each flat.users}}
