@@ -129,7 +129,7 @@
         <input type="text" name="taskname" value="" placeholder="Name" required>
         <input type="text" name="taskdescription" value="" placeholder="Description">
         <select name="taskuser" required>
-            <option value="placeholder" disabled selected hidden>assign to flatmate</option>
+            <option value="{{flat.owner._id}}" selected hidden>assign to flatmate</option>
             {{#each flat.users}}
                 <option value="{{id}}">{{username}}</option>
             {{/each}}
