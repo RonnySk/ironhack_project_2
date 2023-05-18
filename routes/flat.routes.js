@@ -1,6 +1,5 @@
 const bcryptjs = require('bcryptjs');
 const router = require('express').Router();
-const isLoggedOut = require('../middlewares/isLoggedOut');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const isPartOfFlat = require('../middlewares/isPartOfFlat');
 const User = require('../models/User.model');
