@@ -1,7 +1,7 @@
 <section>
     <h1>Add another flatmate</h1>
    <form action="/flat/{{flat.id}}/add-flatmate" method="post">
-        <select name="newFlatMate" id="newFlatMembers" placeholder="choose flatmate">
+        <select name="newFlatMate" id="newFlatMembers" placeholder="choose flatmate" required>
             <option selected disabled>choose flatmate</option>
             {{#each allUsers}}
             <option value="{{_id}}">{{username}}</option>

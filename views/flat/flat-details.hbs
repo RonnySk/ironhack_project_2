@@ -32,7 +32,7 @@
         <p class="edit-mode-hidden">{{flat.name}}</p>
         <form class="edit-mode-show" action="/flat/{{flat._id}}/update" method="post">
             <h2>New flatname:</h2>
-            <input type="text" name="name" value="{{flat.name}}">
+            <input type="text" name="name" value="{{flat.name}}" required>
             <button>Update flatname</button>
         </form>
         <form class="edit-mode-show delete-flat" action="/flat/{{flat._id}}/delete" method="post">
@@ -47,7 +47,7 @@
 <section class="edit-mode-show">
     <h2>Assign new flat admin:</h2>
     <form action="/flat/{{flat._id}}/update/owner/{{userFromSession.id}}" method="post">
-        <select name="flatMembers">
+        <select name="flatMembers" required>
             <option value="placeholder" disabled selected hidden>select person</option>
             {{#each flat.users}}
                 <option value="{{id}}">{{username}}</option>
@@ -126,9 +126,9 @@
 <section class="add-task">
     <h2>Add task</h2>
     <form action="/flat/{{flat._id}}" method="post">
-        <input type="text" name="taskname" value="" placeholder="Name">
+        <input type="text" name="taskname" value="" placeholder="Name" required>
         <input type="text" name="taskdescription" value="" placeholder="Description">
-        <select name="taskuser">
+        <select name="taskuser" required>
             <option value="placeholder" disabled selected hidden>assign to flatmate</option>
             {{#each flat.users}}
                 <option value="{{id}}">{{username}}</option>
