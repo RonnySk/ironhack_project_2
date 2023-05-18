@@ -14,10 +14,11 @@ create flat
 extra
 - reset isdone status of tasks on Sunday midnight (or when not updated for the past 7 days?)
 - random cleaning tipp (wiebke)
+- error message when trying to delete flat owner
 
 - ~~catch errors (i.e. when creating nameless flat)~~
 - ~~bugfix: update profile not possible with empty profile pic (wiebke)~~
-- ~~you can not remove yourself from your own flat?~~ (currently does nothing, we should add a message here)
+- ~~you can not remove yourself from your own flat?~~
 - ~~delete user (+ what happens to their flats?)~~
 - ~~order task list by user (if users have multiple tasks)~~
 - ~~user settings: update picture~~
