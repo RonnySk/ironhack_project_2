@@ -16,11 +16,17 @@ router.post('/signup', uploader.single('imageUrl'), async (req, res, next) => {
 	try {
 		const salt = await bcryptjs.genSalt(12);
 		const hash = await bcryptjs.hash(req.body.password, salt);
+		let imgUrl;
+
+		if (req.file) {
+			imgUrl = req.file.path;
+		}
+
 		const newUser = await User.create({
 			username: req.body.username,
 			email: req.body.email,
 			password: hash,
-			ImgUrl: req.file.path,
+			ImgUrl: imgUrl,
 		});
 		await newUser.save();
 		res.render('auth/login', newUser);
@@ -77,9 +83,12 @@ router.post('/user/:userId/update', uploader.single('imageUrl'), async (req, res
 		// const salt = await bcryptjs.genSalt(12);
 		// const hash = await bcryptjs.hash(req.body.password, salt);
 		const userId = req.params.userId;
-		console.log('REQ:BODY', req.body);
-		if (!req.file.path) {
-			console.log('NO FILE THERE');
+		const currentUser = await User.findById({ _id: userId });
+
+		let theImageUrl = currentUser.ImgUrl;
+
+		if (req.file) {
+			theImageUrl = req.file.path;
 		}
 
 		const updatedUser = await User.findByIdAndUpdate(
@@ -87,15 +96,15 @@ router.post('/user/:userId/update', uploader.single('imageUrl'), async (req, res
 			{
 				username: req.body.userName,
 				email: req.body.emailAddress,
-				ImgUrl: req.file.path,
+				ImgUrl: theImageUrl,
 			},
 			{ new: true }
 		);
 
 		req.session.user = {
 			id: userId,
-			name: req.body.userName,
-			ImgUrl: req.file.path,
+			name: updatedUser.username,
+			ImgUrl: theImageUrl,
 		};
 
 		res.redirect('/flat/');
