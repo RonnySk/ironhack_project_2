@@ -41,7 +41,7 @@ router.get('/flat/:id', isLoggedIn, isPartOfFlat, async (req, res, next) => {
 		let hasOverdueTasks = false;
 		const d = new Date();
 		let day = d.getDay();
-		if (day === 6 || day === 0) {
+		if (day === 5 || day === 6 || day === 0) {
 			for (let i = 0; i < updatedTasks.length; i++) {
 				if (updatedTasks[i].isOwner == true && updatedTasks[i].isDone == false) {
 					hasOverdueTasks = true;
