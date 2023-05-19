@@ -1,24 +1,34 @@
 /*----- GENERAL -----*/
 
 :root {
-  --color-primary: #ACACAC;
-  --color-secondary: #D8D8D8;
-  --color-tertiary: #D8D8D8;
-  --color-text: #000;
-  --color-headlines: #000;
-  --color-links: #CC752F;
-  --color-border-input: #979797;
+  --color-primary: #CA0216;
+  --color-primary-hover: #aa0011;
+  --color-secondary: hsl(210, 97%, 37%);
+  --color-secondary-hover: #09498a;
+  --color-tertiary: #29BE7F;
+  --color-tertiary-hover: #249c6a;
+
+  --color-white: #f9f9f9;
+  --color-text: #333;
+  --color-headlines: var(--color-primary);
+  --color-links: var(--color-secondary);
+  --color-links-hover: var(--color-secondary-hover);
+  --color-border: #cfcfcf;
+
   --base-spacing: 1rem;
-  --font-size-base: 1.5rem;
+  --font-size-base: 1.3rem;
   --header-height: 88px;
   --footer-height: 77px;
+  --border-radius-std: 0.4rem;
 }
 
 body {
+  background-color: var(--color-white);
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(249,249,249,1) 75%);
   color: var(--color-text);
   display: flex;
   flex-direction: column;
-  font: var(--font-size-base) Helvetica, sans-serif;
+  font: var(--font-size-base)/1.4 "Roboto", sans-serif;
   margin: 0;
   min-height: 100vh;
   padding: 0;
@@ -28,21 +38,41 @@ body {
 
 h1,h2,h3,h4,h5,h6 {
   color: var(--color-headlines);
+  font-family: "Roboto Slab";
+  font-weight: 900;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.25rem;
 }
 
-.intro h1 {
+.intro {
+  max-width: 600px;
+}
+
+.intro h1,
+.error h1 {
   font-size: 3rem; 
   margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.error h1 {
   margin-bottom: 1rem;
+}
+
+.intro img {
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
 .intro h1 + h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
+  color: #cacaca;
+  font-family: sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 h1.profile-header {
@@ -51,28 +81,34 @@ h1.profile-header {
 }
 
 h1.profile-header img {
-  border: 2px solid var(--color-secondary);
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
   border-radius: 50%;
+  display: block;
   margin-right: var(--base-spacing);
   flex: 0 0 100px;
   object-fit: cover;
 }
 
 span.is-admin {
-  background-color: orange;
+  background-color: var(--color-secondary);
   color: white;
   font-size: 1rem;
+  font-family: sans-serif;
   display: inline-block;
   padding: 5px 12px;
   margin-left: 1rem;
   border-radius: 15px;
   vertical-align: super;
+  letter-spacing: 0.75px;
 }
 
 h2 {
-  font-size: var(--font-size-base);
+  font-size: 1.75rem;
   margin-bottom: 0.75rem;
   margin-top: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
 }
 
 h1+h2 {
@@ -84,34 +120,57 @@ main > section h2:first-child {
 }
 
 main > section:not(:first-child) h2 {
-  border-top: 1px solid var(--color-secondary);
+  border-top: 2px solid #dbdee3;
   margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
   padding-top: 2.5rem;
+}
+
+form h2 {
+  color: var(--color-text);
 }
 
 p {
   margin-top: 0;
 }
 
+.error p {
+  font-size: 1.5rem;
+}
+
 .card {
-  background-color: var(--color-secondary);
-  border: 2px solid var(--color-primary);
-  padding: var(--base-spacing);
+  background-color: rgba(3, 97, 188, 0.15);
+  border: 2px solid rgba(3, 97, 188, 0.2);
+  border-radius: var(--border-radius-std);
+  display: flex;
+  gap: var(--base-spacing);
+  padding: calc(var(--base-spacing) * 1.5);
   font-size: 1.3rem;
 }
 
-.card > *:last-child {
+.card p:last-of-type {
   margin-bottom: 0;
+}
+
+.card img {
+  border-radius: 50%;
 }
 
 a {
   color: var(--color-links);
 }
 
+a:hover,
+a:focus,
+a:active {
+  color: var(--color-links-hover);
+}
+
 a.logo {
-  height: 55px;
+  height: 48px;
   text-decoration: none;
   font-size: 3rem;
+  line-height: 3rem;
 }
 
 ul.unstyled {
@@ -128,11 +187,16 @@ ul.unstyled {
   text-align: right;
 }
 
+.text-color {
+  color: var(--color-text);
+}
+
 
 /*----- PAGE ELEMENTS -----*/
 
 header {
-  background-color: var(--color-secondary);
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(249,249,249,1) 75%);
+  box-shadow: 0  0 15px rgba(0,0,0,0.2);
   display: flex;
   position: fixed;
   justify-content: space-between;
@@ -157,9 +221,10 @@ main .logo {
 }
 
 footer {
-  background-color: var(--color-secondary);
-  font-size: 1.2rem;
-  padding: var(--base-spacing);
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(249,249,249,1) 75%);
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+  font-size: 1rem;
+  padding: calc(var(--base-spacing) * 1.5) var(--base-spacing) var(--base-spacing);
   text-align: right;
 }
 
@@ -193,17 +258,19 @@ figure.user {
 }
 
 figure.user img {
-  background-color: var(--color-primary);
-  border: 2px solid var(--color-secondary);
+  background-color: var(--color-white);
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
   object-fit: cover;
   border-radius: 50%;
   display: block;
   margin: 0 auto;
-  height: 80px;
-  width: 80px;
+  height: 90px;
+  width: 90px;
 }
 
 figure.user figcaption {
+  font-size: 1.2rem;
   margin: 1rem auto 0;
 }
 
@@ -213,11 +280,13 @@ figure.user figcaption {
 .list-flatmates {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--base-spacing);
+  column-gap: var(--base-spacing);
+  row-gap: calc(var(--base-spacing) * 2);
 }
 
 .list-flatmates li {
-  flex: 0 0 calc(20% - (var(--base-spacing)*4/5));
+  flex: 0 0 calc((100% / 6) - (var(--base-spacing)*5/6));
+  
   position: relative;
 }
 
@@ -227,6 +296,32 @@ figure.user figcaption {
 
 .list-flatmates img {
   margin: 0 auto;
+}
+
+.list-flats {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 4%;
+  list-style: none;
+  padding: 0;
+}
+
+.list-flats li {
+  box-sizing: border-box;
+  display: inline-block;
+  flex: 1 1 48%;
+  min-width: 280px;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 2.5rem;
+  vertical-align: top;
+}
+
+.list-flats li:before {
+  content: "🧼";
+  display: block;
+  position: absolute;
+  left: 0;
 }
 
 
@@ -254,6 +349,17 @@ figure.user figcaption {
   flex: 0 0;
 }
 
+.list-tasks li .status .task-status {
+  padding: calc(var(--base-spacing));
+}
+
+.list-tasks .btn-update-task {
+  min-width: 145px;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+
 
 /*----- FORM ELEMENTS -----*/
 
@@ -262,20 +368,48 @@ form + form {
   margin-top: var(--base-spacing);
 }
 
+form.delete-task,
+.status form {
+  margin-top: 0;
+}
+
 label {
   font-weight: bold;
+  display: block;
+  margin: 1.5rem 0 0.5rem;
 }
 
 input,
 select,
 textarea {
-  border: 1px solid var(--color-border-input);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-std);
   display: block;
+  font-family: "Roboto", sans-serif;
   font-size: var(--font-size-base);
   margin-bottom: var(--base-spacing);
   padding: var(--base-spacing);
   box-sizing: border-box;
   width: 100%;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-color: var(--color-secondary);
+  outline-color: var(--color-secondary);
+}
+
+select:not[multiple] {
+  color: #757575;
+}
+
+select[multiple] {
+  padding: 0.5rem 0;
+}
+
+select option {
+  padding: 0.5rem 1rem;
 }
 
 
@@ -286,18 +420,56 @@ button,
 input[type="submit"] {
   background-color: var(--color-secondary);
   border: none;
+  border-radius: var(--border-radius-std);
   box-sizing: border-box;
-  color: var(--color-text);
+  color: var(--color-white);
   cursor: pointer;
+  font-family: "Roboto", sans-serif;
   font-size: calc(var(--font-size-base) * 0.9);
   font-weight: bold;
   display: block;
   letter-spacing: 1px;
-  padding: var(--base-spacing);
+  padding: calc(var(--base-spacing));
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+  transition: background-color 0.2s ease;
   width: 100%;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+button:hover,
+button:hover,
+button:active,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+input[type="submit"]:active {
+  transition: background-color 0.2s ease;
+  background-color: var(--color-secondary-hover);
+  color: var(--color-white);
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important; /*i know, i know …*/
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--color-primary-hover) !important; /*i know, i know …*/
+}
+
+.btn-tertiary {
+  transition: background-color 0.2s ease;
+  background-color: var(--color-tertiary);
+}
+
+.btn-tertiary:hover,
+.btn-tertiary:focus,
+.btn-tertiary:active {
+  background-color: var(--color-tertiary-hover);
 }
 
 main .btn:not(:last-child),
@@ -311,10 +483,14 @@ main input[type="submit"]:not(:last-child) {
   column-gap: var(--base-spacing);
 }
 
-header .btn,
-header button,
-header input[type="submit"] {
-  background-color: #fff;
+.toggle-edit-mode,
+.btn-settings {
+  padding: 10px;
+}
+
+.toggle-edit-mode img,
+.btn-settings img {
+  display: block;
 }
 
 header form,
@@ -325,16 +501,12 @@ header input[type="submit"] {
   margin-top: 0;
 }
 
-.btn:hover,
-.btn:focus,
-.btn:active,
-button:hover,
-button:hover,
-button:active,
-input[type="submit"]:hover,
-input[type="submit"]:focus,
-input[type="submit"]:active {
-  background-color: var(--color-primary);
+header button, header .btn {
+  white-space: nowrap;
+}
+
+header .btn-login {
+  line-height: 1.2;
 }
 
 
@@ -364,7 +536,7 @@ input[type="submit"]:active {
 
 .edit-mode-on .list-flatmates li:hover button:before {
   transform: scale(1.4);
-  background-color: red;
+  background-color: var(--color-primary);
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
@@ -391,14 +563,15 @@ input[type="submit"]:active {
   left: 0;
   right: 0;
   bottom: 0;
+  margin: 0;
   height: 80px;
   width: 100%;
 }
 
 .btn-delete-flatmate {
   background-color: transparent;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   margin: 0 auto;
   overflow: hidden;
   text-indent: -9999px;
@@ -414,7 +587,8 @@ input[type="submit"]:active {
   background: var(--color-secondary);
   border-radius: 50%;
   top: 0;
-  right: 16px;
+  right: 0px;
+  line-height: 1.4;
 }
 
 .btn-delete-flatmate:hover,
