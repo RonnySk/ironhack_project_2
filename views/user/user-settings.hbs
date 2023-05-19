@@ -1,7 +1,7 @@
 <section>
     <h1 class="profile-header">
         {{#if currentUser.ImgUrl}}<a href="/flat"><img src="{{currentUser.ImgUrl}}" alt="" width="120" height="120" /></a>{{/if}}
-        Hello {{currentUser.username}}
+        Welcome, {{currentUser.username}}
     </h1>
 </section>
 <section>
@@ -20,5 +20,5 @@
     {{#if error}}
     {{error}}
     {{/if}}
-    <a href="/user/{{currentUser._id}}/delete" class="btn">delete your account</a>
+    <a href="/user/{{currentUser._id}}/delete" class="btn btn-primary">delete your account</a>
 </section>

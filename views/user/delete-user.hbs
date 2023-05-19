@@ -5,14 +5,17 @@
     </h1>
 </section>
 <section>
-    <h2>{{currentUser.username}}, we’re so sorry to see you go.</h2>
+    <h2>{{currentUser.username}},<br>
+    we’re so sorry to see you go.</h2>
 
     <p>You’ve been one of our favourites and your bathroom cleaning skills are beyond anything we’ve ever seen before.</p>
     <p>Are you moving into your own place, marrying a super tidy person or have you finally found a way to let AI do all the work for you? Splendid!</p>
 
     {{#if currentUsersFlats}}
     <div class="card">
-        <p>Just one more thing:<br>Before you go, assign a new admin or delete your flat(s), so we can keep everything neat and tidy around here as well.</p>
+        <div class="text">
+            <p><strong>Just one more thing:</strong><br>Before you go, assign a new admin or delete your flat(s), so we can keep everything neat and tidy around here as well.</p>
+        </div>
     </div>
         {{#each currentUsersFlats}}
             <form action="/flat/{{id}}/update/owner/{{../currentUser.id}}/settings" method="post">
@@ -26,13 +29,13 @@
                 <button type="submit">update admin</button>
             </form>
             <form action="/flat/{{id}}/delete/{{../currentUser.id}}" method="post">
-                <button type="submit">delete flat</button>
+                <button type="submit" class="btn-primary">delete flat</button>
             </form>
         {{/each}}
     {{else}}
         <p>Let’s delete your account then, so we can keep everything neat and tidy around here as well.</p>
         <form action="/user/{{currentUser._id}}/delete" method="post">
-            <input type="submit" value="Delete Account" />
+            <input type="submit" class="btn-primary" value="Delete Account" />
         </form>
     {{/if}}
     {{#if error}}

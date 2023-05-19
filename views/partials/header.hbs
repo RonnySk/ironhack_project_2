@@ -1,16 +1,23 @@
 <header>
     {{#if userFromSession}}
-    <a class="logo" href="/flat">🥨</a>    
+    <a class="logo" href="/flat">🧼</a>    
     <div class="btn-group">
         {{#if userIsAdmin}}
-        <button class="toggle-edit-mode">Edit flat</button>
+        <button class="toggle-edit-mode" aria-label="Edit flat">
+            Edit flat
+        </button>
         {{/if}}
-        <a href="/user/{{userFromSession.id}}" class="btn">User Settings</a>
+        <a href="/user/{{userFromSession.id}}" class="btn btn-settings" aria-label="User Settings">
+            <img src="/images/icon-user-white.svg" width="32" height="32" alt="">
+            </a>
         <form action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
     </div>
     {{else}}
-    <a class="logo" href="/">🥨</a>    
+    <a class="logo" href="/">🧼</a>
+    <div class="btn-group">
+        <a href="/login" class="btn btn-login">Login</a>
+    </div>
     {{/if}}
 </header>

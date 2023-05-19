@@ -7,22 +7,33 @@
     </h1>
     <div class="card">
         {{#if hasOverdueTasks}}
-            <p>
-                <span style="text-transform: uppercase">{{userFromSession.name}}</span>! ☝️ It’s Saturday and you haven’t completed your tasks yet. That’s really bad (we’re not angry, we’re just disappointed). Do it soon or this baby animal is going to be very sad:
-            </p>
-            <img src="/images/sad-kitten.jpg" width="200" />
+            <div class="text">
+                <p>
+                    <strong style="text-transform: uppercase">{{userFromSession.name}}!</strong> ☝️
+                </p>
+                <p>
+                    It’s the weekend and you haven’t completed your tasks yet (we’re not angry, we’re just disappointed).
+                </p>
+                <p>
+                    But please do it soon or this baby animal is going to be very sad:
+                </p>
+            </div>
+            <img src="/images/sad-kitten.jpg" width="185" height="185" />
         {{else}}
-            <p>
-                Hey {{userFromSession.name}},
-            </p>
-            <p>
-                great job this week – you’re not behind on any tasks (yet).<br>
-                So how about some fun reading instead?
-            </p>
-            <p>
-                Did you know about these <a href="https://www.mollymaid.com/practically-spotless/2016/march/ultimate-q-tips-cleaning-tips/">5 great cleaning tipps involving Q-tips?</a><br>
-                Fascinating, right? Let that flat sparkle! ✨
-            </p>
+            <div class="text">
+                <p>
+                    Hey {{userFromSession.name}},
+                </p>
+                <p>
+                    great job this week – you’re not behind on any tasks (yet). How about some fun reading then?
+                </p>
+                <p>
+                    These <a href="https://www.mollymaid.com/practically-spotless/2016/march/ultimate-q-tips-cleaning-tips/">5 great cleaning tipps involving Q-tips</a><br>
+                    will blow your mind, we promise!<br>
+                    Let that flat sparkle! ✨
+                </p>
+            </div>
+            <img src="/images/thumbsup.jpg" width="220" height="220" />
         {{/if}}
     </div>
 </section>
@@ -36,17 +47,17 @@
             <button>Update flatname</button>
         </form>
         <form class="edit-mode-show delete-flat" action="/flat/{{flat._id}}/delete" method="post">
-            <button type="submit" class="btn btn-edit btn-delete-flat">delete flat</button>
+            <button type="submit" class="btn btn-primary btn-delete-flat">delete flat</button>
         </form>
-        <a class="edit-mode-hidden" href="/flat">👉 see all your flats</a>
+        <span class="edit-mode-hidden">👉 <a href="/flat">see all your flats</a></span>
     {{else}}
         <p>You are currently in no flat</p>
     {{/if}}
 </section>
 {{#if flat}}
 <section class="edit-mode-show">
-    <h2>Assign new flat admin:</h2>
     <form action="/flat/{{flat._id}}/update/owner/{{userFromSession.id}}" method="post">
+        <h2>Assign new flat admin:</h2>
         <select name="flatMembers" required>
             <option value="placeholder" disabled selected hidden>select person</option>
             {{#each flat.users}}
@@ -71,7 +82,7 @@
                         <figcaption class="name">{{username}}</figcaption>
                     </figure>
                     <form class="edit-mode-show delete-flatmate" action="/flat/{{../flat._id}}/user/{{_id}}/delete" method="post">
-                        <button type="submit" class="btn btn-edit btn-delete-flatmate">delete flatmate</button>
+                        <button type="submit" class="btn btn-delete-flatmate">delete flatmate</button>
                     </form>
                 </li>
             {{/each}}
@@ -97,15 +108,15 @@
                         <small>{{this.description}}</small>
                      </p>
                     <form class="edit-mode-show delete-task" action="/flat/{{../flat._id}}/task/{{_id}}/delete" method="post">
-                        <button type="submit" class="btn btn-edit">delete task</button>
+                        <button type="submit" class="btn btn-primary">delete task</button>
                     </form>
                     <div class="status">
                         {{#if isOwner}}
                                 <form action="/flat/{{../flat._id}}/task/{{_id}}/update" method="post">
                                 {{#if this.isDone}}
-                                    <button class="btn btn-update-task">✅</button>
+                                    <button class="btn btn-update-task btn-tertiary">Done ✅</button>
                                 {{else}}
-                                    <button class="btn btn-update-task">🔲</button>
+                                    <button class="btn btn-update-task">undone 🔲</button>
                                 {{/if}}
                             </form>
                         {{else}}
