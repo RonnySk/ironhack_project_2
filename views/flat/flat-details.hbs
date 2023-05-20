@@ -5,37 +5,6 @@
         {{/if}}
         Welcome, {{userFromSession.name}} {{#if userIsAdmin}}<span class="is-admin">ADMIN</span>{{/if}}
     </h1>
-    <div class="card">
-        {{#if hasOverdueTasks}}
-            <div class="text">
-                <p>
-                    <strong style="text-transform: uppercase">{{userFromSession.name}}!</strong> ☝️
-                </p>
-                <p>
-                    It’s the weekend and you haven’t completed your tasks yet (we’re not angry, we’re just disappointed).
-                </p>
-                <p>
-                    But please do it soon or this baby animal is going to be very sad:
-                </p>
-            </div>
-            <img src="/images/sad-kitten.jpg" width="185" height="185" />
-        {{else}}
-            <div class="text">
-                <p>
-                    Hey {{userFromSession.name}},
-                </p>
-                <p>
-                    great job this week – you’re not behind on any tasks (yet). How about some fun reading then?
-                </p>
-                <p>
-                    These <a href="https://www.mollymaid.com/practically-spotless/2016/march/ultimate-q-tips-cleaning-tips/">5 great cleaning tipps involving Q-tips</a><br>
-                    will blow your mind, we promise!<br>
-                    Let that flat sparkle! ✨
-                </p>
-            </div>
-            <img src="/images/thumbsup.jpg" width="220" height="220" />
-        {{/if}}
-    </div>
 </section>
 <section>
     <h2 class="edit-mode-hidden">Your current flat:</h2>
@@ -91,6 +60,37 @@
 </section>
 <section>
     <h2>This week’s tasks:</h2>
+    <div class="card">
+        {{#if hasOverdueTasks}}
+            <div class="text">
+                <p>
+                    <strong style="text-transform: uppercase">{{userFromSession.name}}!</strong> ☝️
+                </p>
+                <p>
+                    It’s the weekend and you haven’t completed your tasks yet (we’re not angry, we’re just disappointed).
+                </p>
+                <p>
+                    But please do it soon or this baby animal is going to be very sad:
+                </p>
+            </div>
+            <img src="/images/sad-kitten.jpg" width="185" height="185" />
+        {{else}}
+            <div class="text">
+                <p>
+                    Hey {{userFromSession.name}},
+                </p>
+                <p>
+                    great job this week – you’re not behind on any tasks (yet). How about some fun reading then?
+                </p>
+                <p>
+                    These <a href="https://www.mollymaid.com/practically-spotless/2016/march/ultimate-q-tips-cleaning-tips/">5 great cleaning tipps involving Q-tips</a><br>
+                    will blow your mind, we promise!<br>
+                    Let that flat sparkle! ✨
+                </p>
+            </div>
+            <img src="/images/thumbsup.jpg" width="220" height="220" />
+        {{/if}}
+    </div>
     {{#if updatedTasks}}
         <ul class="list-tasks">
             {{#each updatedTasks}}
