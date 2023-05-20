@@ -48,6 +48,7 @@ h1 {
 
 .intro {
   max-width: 600px;
+  margin: 0 auto;
 }
 
 .intro h1,
