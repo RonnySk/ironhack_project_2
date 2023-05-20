@@ -172,6 +172,7 @@ a.logo {
   text-decoration: none;
   font-size: 3rem;
   line-height: 3rem;
+  min-width: 180px;
 }
 
 ul.unstyled {
@@ -206,6 +207,29 @@ header {
   top: 0;
   right: 0;
   z-index: 10;
+}
+
+.nav-main ul {
+  display: none;
+  column-gap: var(--base-spacing);
+  line-height: 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 750px;
+}
+
+@media (min-width: 1024px) {
+  .nav-main ul {
+    display: flex;
+  }
+}
+
+.nav-main a {
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 0.25px;
 }
 
 main {
@@ -244,8 +268,6 @@ section.intro,
 section.error {
   text-align: center;
 }
-
-
 
 figure {
   margin: 0;

@@ -5,6 +5,12 @@ const User = require('../models/User.model');
 const Flat = require('../models/Flat.model');
 const uploader = require('../middlewares/cloudinary.config.js');
 
+// about page route
+
+router.get('/about', (req, res) => {
+	res.render('about');
+});
+
 // signup route
 
 router.get('/signup', (req, res) => {
