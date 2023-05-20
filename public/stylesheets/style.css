@@ -172,7 +172,6 @@ a.logo {
   text-decoration: none;
   font-size: 3rem;
   line-height: 3rem;
-  min-width: 180px;
 }
 
 ul.unstyled {
@@ -203,14 +202,24 @@ header {
   position: fixed;
   justify-content: space-between;
   padding: var(--base-spacing);
+  position: relative;
   left: 0;
   top: 0;
   right: 0;
   z-index: 10;
 }
 
-.nav-main ul {
+.nav-main {
   display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.nav-main ul {
+  display: flex;
   column-gap: var(--base-spacing);
   line-height: 3rem;
   margin: 0;
@@ -220,8 +229,8 @@ header {
 }
 
 @media (min-width: 1024px) {
-  .nav-main ul {
-    display: flex;
+  .nav-main {
+    display: block;
   }
 }
 
@@ -235,7 +244,7 @@ header {
 main {
   padding: calc(var(--base-spacing) * 2) var(--base-spacing) calc(var(--base-spacing) * 4);
   max-width: 750px;
-  margin: var(--header-height) auto 0;
+  margin: 0 auto;
   width: calc(100% - var(--base-spacing) * 2);
   flex: 1;
 }
@@ -530,6 +539,9 @@ header button, header .btn {
 
 header .btn-login {
   line-height: 1.2;
+}
+
+header .btn-group {
 }
 
 
