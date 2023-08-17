@@ -18,4 +18,4 @@ Ronny Skaraboto
 Linkedin: www.linkedin.com/in/ronny-skaraboto
 
 Wiebke Lüneburg
-Linkedin: https://github.com/fraulueneburg-ironhack
+Linkedin: www.linkedin.com/in/fraulueneburg
